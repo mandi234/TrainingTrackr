@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.trainingtrackr.R;
 import com.example.trainingtrackr.model.Exercise;
-import com.example.trainingtrackr.model.Training;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -38,7 +37,7 @@ public class TrainingAdapter extends RecyclerView.Adapter<TrainingAdapter.Excerc
     @Override
     public void onBindViewHolder(@NonNull @NotNull TrainingAdapter.ExcerciseViewHolder holder, int position) {
         String exerciseName = exercisesList.get(position).getName();
-        holder.exerciseNameTextView.setText(exerciseName);
+
     }
 
     @Override
@@ -48,11 +47,11 @@ public class TrainingAdapter extends RecyclerView.Adapter<TrainingAdapter.Excerc
 
     public class ExcerciseViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView exerciseNameTextView;
+
 
         public ExcerciseViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
-            exerciseNameTextView = itemView.findViewById(R.id.exercise_name_tv);
+
 
         }
     }

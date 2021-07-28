@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.trainingtrackr.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
@@ -22,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent trainingNoteIntent = new Intent(MainActivity.this, TrainingNoteActivity.class);
+                Intent trainingNoteIntent = new Intent(MainActivity.this, TrainingActivity.class);
                 MainActivity.this.startActivity(trainingNoteIntent);
             }
         });

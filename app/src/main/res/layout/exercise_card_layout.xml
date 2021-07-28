@@ -10,65 +10,65 @@
     android:rotationY="0">
 
     <EditText
-        android:id="@+id/editTextNumber2"
+        android:id="@+id/weight_etn"
         android:layout_width="31dp"
         android:layout_height="26dp"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="number"
-        app:layout_constraintEnd_toEndOf="@+id/textView6"
-        app:layout_constraintStart_toStartOf="@+id/textView6"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintEnd_toEndOf="@+id/weight_tv"
+        app:layout_constraintStart_toStartOf="@+id/weight_tv"
+        app:layout_constraintTop_toBottomOf="@+id/weight_tv" />
 
     <EditText
-        android:id="@+id/editTextNumber3"
+        android:id="@+id/reps_etn"
         android:layout_width="31dp"
         android:layout_height="26dp"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="number"
-        app:layout_constraintEnd_toEndOf="@+id/textView5"
-        app:layout_constraintStart_toStartOf="@+id/textView5"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintEnd_toEndOf="@+id/reps_tv"
+        app:layout_constraintStart_toStartOf="@+id/reps_tv"
+        app:layout_constraintTop_toBottomOf="@+id/reps_tv" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/exercise_spinner"
         android:layout_width="57dp"
         android:layout_height="25dp"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="@+id/textView3"
+        app:layout_constraintEnd_toEndOf="@+id/exercise_tv"
         app:layout_constraintHorizontal_bias="0.857"
-        app:layout_constraintStart_toStartOf="@+id/textView3"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintStart_toStartOf="@+id/exercise_tv"
+        app:layout_constraintTop_toBottomOf="@+id/exercise_tv" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/exercise_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:layout_marginLeft="28dp"
         android:layout_marginTop="8dp"
         android:text="Exercise"
-        app:layout_constraintEnd_toStartOf="@+id/textView4"
+        app:layout_constraintEnd_toStartOf="@+id/sets_tv"
         app:layout_constraintHorizontal_bias="0.163"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/sets_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="52dp"
         android:layout_marginRight="52dp"
         android:text="Sets"
-        app:layout_constraintEnd_toStartOf="@+id/textView5"
+        app:layout_constraintEnd_toStartOf="@+id/reps_tv"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/reps_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -79,25 +79,25 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/weight_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Weight"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.448"
-        app:layout_constraintStart_toEndOf="@+id/textView5"
+        app:layout_constraintStart_toEndOf="@+id/reps_tv"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editTextNumber"
+        android:id="@+id/sets_etn"
         android:layout_width="31dp"
         android:layout_height="26dp"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="number"
-        app:layout_constraintEnd_toEndOf="@+id/textView4"
-        app:layout_constraintStart_toStartOf="@+id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintEnd_toEndOf="@+id/sets_tv"
+        app:layout_constraintStart_toStartOf="@+id/sets_tv"
+        app:layout_constraintTop_toBottomOf="@+id/sets_tv" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

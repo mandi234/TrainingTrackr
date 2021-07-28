@@ -9,6 +9,14 @@ public class Exercise {
     private String note;
 
 
+    public Exercise() {
+        this.name = "";
+        this.sets = 0;
+        this.reps = 0;
+        this.weight = 0;
+        this.note = "";
+    }
+
     public Exercise(String name, int sets, int reps, int weight, String note) {
         this.name = name;
         this.sets = sets;

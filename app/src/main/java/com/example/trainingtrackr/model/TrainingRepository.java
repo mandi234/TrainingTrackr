@@ -1,0 +1,31 @@
+package com.example.trainingtrackr.model;
+
+
+import androidx.lifecycle.LiveData;
+
+import java.util.List;
+
+public class TrainingRepository {
+
+    private TrainingDao trainingDao;
+    private volatile static TrainingRepository instance;
+
+    private TrainingRepository(TrainingDao trainingDao) {
+        this.trainingDao = trainingDao;
+    }
+
+    public synchronized static TrainingRepository getInstance(TrainingDao trainingDao) {
+        if(instance == null) instance = new TrainingRepository(trainingDao);
+
+        return instance;
+
+    }
+
+    public void addTraining(Training training) {
+        trainingDao.addTraining(training);
+    }
+
+    public LiveData<List<Training>> getTrainings() {
+       return trainingDao.getTrainings();
+    }
+}

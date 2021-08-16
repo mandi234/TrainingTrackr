@@ -1,4 +1,4 @@
-package com.example.trainingtrackr;
+package com.example.trainingtrackr.ui.exercies;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -7,28 +7,27 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.view.View;
 
-import com.example.trainingtrackr.adapters.TrainingAdapter;
+import com.example.trainingtrackr.R;
+import com.example.trainingtrackr.adapters.ExercisesAdapter;
 import com.example.trainingtrackr.model.Exercise;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TrainingActivity extends AppCompatActivity {
+public class ExercisesActivity extends AppCompatActivity {
 
     private List<Exercise> exercisesList;
     private RecyclerView recyclerView;
     private FloatingActionButton addExerciseFab;
-    private TrainingAdapter trainingAdapter;
+    private ExercisesAdapter trainingAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_training);
+        setContentView(R.layout.activity_exercises);
         recyclerView = findViewById(R.id.training_recycler_view);
         addExerciseFab = findViewById(R.id.add_exercise_fab);
         exercisesList = new ArrayList<>();
@@ -46,7 +45,7 @@ public class TrainingActivity extends AppCompatActivity {
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private void initAdapter() {
-        trainingAdapter = new TrainingAdapter(exercisesList);
+        trainingAdapter = new ExercisesAdapter(exercisesList);
         RecyclerView.LayoutManager layoutManager =  new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(trainingAdapter);

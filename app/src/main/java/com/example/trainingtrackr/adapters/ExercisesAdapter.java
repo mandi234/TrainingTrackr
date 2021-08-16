@@ -1,10 +1,8 @@
 package com.example.trainingtrackr.adapters;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,12 +14,12 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class TrainingAdapter extends RecyclerView.Adapter<TrainingAdapter.ExcerciseViewHolder> {
+public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.ExcerciseViewHolder> {
 
     private List<Exercise> exercisesList;
 
 
-    public TrainingAdapter(List<Exercise> exercisesList) {
+    public ExercisesAdapter(List<Exercise> exercisesList) {
         this.exercisesList = exercisesList;
     }
 
@@ -35,7 +33,7 @@ public class TrainingAdapter extends RecyclerView.Adapter<TrainingAdapter.Excerc
     }
 
     @Override
-    public void onBindViewHolder(@NonNull @NotNull TrainingAdapter.ExcerciseViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull @NotNull ExercisesAdapter.ExcerciseViewHolder holder, int position) {
         String exerciseName = exercisesList.get(position).getName();
 
     }

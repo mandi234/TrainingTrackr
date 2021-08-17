@@ -49,7 +49,7 @@ public class TrainingsActivity extends AppCompatActivity {
         trainingsViewModel.getTrainings().observe(this, new Observer<List<Training>>() {
             @Override
             public void onChanged(List<Training> trainings) {
-               initAdapter(TrainingsActivity.this, trainings);
+                initAdapter(TrainingsActivity.this, trainings);
                 System.out.println(trainings.toString());
             }
         });
@@ -67,15 +67,15 @@ public class TrainingsActivity extends AppCompatActivity {
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private void initAdapter(Activity context, List<Training> trainings) {
-        TrainingsAdapter mainAdapter = new TrainingsAdapter(context, trainings);
+        TrainingsAdapter trainingsAdapter = new TrainingsAdapter(context, trainings);
         RecyclerView.LayoutManager layoutManager =  new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(mainAdapter);
+        recyclerView.setAdapter(trainingsAdapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
-        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.exercise_item_divider));
-        recyclerView.addItemDecoration(dividerItemDecoration);
+        //DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
+        //dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.exercise_item_divider));
+        //recyclerView.addItemDecoration(dividerItemDecoration);
 
     }
 

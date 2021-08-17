@@ -16,7 +16,7 @@ public class FakeTrainingDao implements TrainingDao {
 
     @Override
     public void addTraining(Training training) {
-        trainingList.add(training);
+        trainingList.add(0, training);
         trainings.setValue(trainingList);
     }
 

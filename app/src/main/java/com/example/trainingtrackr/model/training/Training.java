@@ -1,4 +1,4 @@
-package com.example.trainingtrackr.model;
+package com.example.trainingtrackr.model.training;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;

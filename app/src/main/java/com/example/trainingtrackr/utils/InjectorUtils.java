@@ -1,9 +1,7 @@
 package com.example.trainingtrackr.utils;
 
 import com.example.trainingtrackr.app.TrainingTrackr;
-import com.example.trainingtrackr.model.FakeDatabase;
-import com.example.trainingtrackr.model.TrainingRepository;
-import com.example.trainingtrackr.ui.trainings.TrainingsViewModel;
+import com.example.trainingtrackr.model.training.TrainingRepository;
 import com.example.trainingtrackr.ui.trainings.TrainingsViewModelFactory;
 
 public class InjectorUtils {

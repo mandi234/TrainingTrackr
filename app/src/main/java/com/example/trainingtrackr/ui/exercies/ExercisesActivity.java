@@ -11,7 +11,7 @@ import android.os.Bundle;
 
 import com.example.trainingtrackr.R;
 import com.example.trainingtrackr.adapters.ExercisesAdapter;
-import com.example.trainingtrackr.model.Exercise;
+import com.example.trainingtrackr.model.exercise.Exercise;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;

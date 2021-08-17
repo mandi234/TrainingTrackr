@@ -1,4 +1,4 @@
-package com.example.trainingtrackr.model;
+package com.example.trainingtrackr.model.exercise;
 
 public class Exercise {
 

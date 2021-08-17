@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,12 +14,10 @@ import android.view.View;
 
 import com.example.trainingtrackr.R;
 import com.example.trainingtrackr.adapters.TrainingsAdapter;
-import com.example.trainingtrackr.model.Training;
+import com.example.trainingtrackr.model.training.Training;
 import com.example.trainingtrackr.utils.InjectorUtils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class TrainingsActivity extends AppCompatActivity {
@@ -50,7 +47,6 @@ public class TrainingsActivity extends AppCompatActivity {
             @Override
             public void onChanged(List<Training> trainings) {
                 initAdapter(TrainingsActivity.this, trainings);
-                System.out.println(trainings.toString());
             }
         });
 
@@ -78,6 +74,7 @@ public class TrainingsActivity extends AppCompatActivity {
         //recyclerView.addItemDecoration(dividerItemDecoration);
 
     }
+
 
 
 }

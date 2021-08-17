@@ -1,7 +1,9 @@
-package com.example.trainingtrackr.model;
+package com.example.trainingtrackr.model.training.dao;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+
+import com.example.trainingtrackr.model.training.Training;
 
 import java.util.ArrayList;
 import java.util.List;

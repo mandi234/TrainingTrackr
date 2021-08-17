@@ -1,4 +1,7 @@
-package com.example.trainingtrackr.model;
+package com.example.trainingtrackr.database;
+
+import com.example.trainingtrackr.model.training.dao.FakeTrainingDao;
+import com.example.trainingtrackr.model.training.dao.TrainingDao;
 
 public class FakeDatabase {
 

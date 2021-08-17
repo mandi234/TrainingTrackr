@@ -4,9 +4,8 @@ import android.app.Application;
 import android.content.Context;
 
 import androidx.room.Room;
-import androidx.room.RoomDatabase;
 
-import com.example.trainingtrackr.model.TrackrRoomDatabase;
+import com.example.trainingtrackr.database.TrackrRoomDatabase;
 
 public class TrainingTrackr extends Application {
 

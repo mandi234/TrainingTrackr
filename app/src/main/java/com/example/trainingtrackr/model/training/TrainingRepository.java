@@ -1,7 +1,9 @@
-package com.example.trainingtrackr.model;
+package com.example.trainingtrackr.model.training;
 
 
 import androidx.lifecycle.LiveData;
+
+import com.example.trainingtrackr.model.training.dao.TrainingDao;
 
 import java.util.List;
 

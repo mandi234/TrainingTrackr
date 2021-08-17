@@ -1,6 +1,7 @@
 package com.example.trainingtrackr.model;
 
-import java.util.ArrayList;
+import com.example.trainingtrackr.model.training.Training;
+
 import java.util.List;
 
 

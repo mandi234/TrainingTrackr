@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 
 import java.util.Date;
 
-public class Training {
+import io.realm.RealmObject;
+
+public class Training extends RealmObject {
 
     private Date date;
     private String name;

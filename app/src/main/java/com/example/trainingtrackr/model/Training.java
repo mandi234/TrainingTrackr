@@ -1,12 +1,21 @@
 package com.example.trainingtrackr.model;
 
 import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 import java.util.Date;
+import java.util.UUID;
 
+@Entity
 public class Training {
 
-    private Date date;
+    @ColumnInfo(name ="date")
+    private String date;
+    @ColumnInfo(name ="name")
+    @PrimaryKey
+    @NonNull
     private String name;
 
     public Training() {
@@ -16,17 +25,17 @@ public class Training {
         this.name = name;
     }
 
-    public Training(Date date, String name) {
+    public Training(String date, String name) {
         this(name);
         this.date = date;
     }
 
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

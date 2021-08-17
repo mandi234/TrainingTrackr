@@ -8,6 +8,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:name=".app.TrainingTrackr"
         android:theme="@style/Theme.TrainingTrackr">
         <activity android:name=".ui.exercies.ExercisesActivity"></activity>
         <activity android:name=".ui.trainings.TrainingsActivity">

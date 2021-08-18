@@ -32,6 +32,7 @@ public class ExercisesActivity extends AppCompatActivity {
         addExerciseFab = findViewById(R.id.add_exercise_fab);
         exercisesList = new ArrayList<>();
 
+        System.out.println(getIntent().getLongExtra("trainingId", 0));
 
 
         initAdapter();

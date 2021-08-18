@@ -2,6 +2,7 @@ package com.example.trainingtrackr.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,7 +16,9 @@ import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.trainingtrackr.R;
+import com.example.trainingtrackr.app.TrainingTrackr;
 import com.example.trainingtrackr.model.training.Training;
+import com.example.trainingtrackr.ui.exercies.ExercisesActivity;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -47,7 +50,13 @@ public class TrainingsAdapter extends RecyclerView.Adapter<TrainingsAdapter.Main
 
         Training training = trainingList.get(position);
         holder.nameTextView.setText(training.getName());
-        holder.itemView.setOnClickListener(v -> System.out.println("TODO"));
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(holder.itemView.getContext(), ExercisesActivity.class);
+            intent.putExtra("trainingId", trainingList.get(position).getId());
+            context.startActivity(intent);
+
+        });
+
     }
 
     private void showTrainingMenuPopup(@NotNull MainViewHolder holder, Context ctx) {

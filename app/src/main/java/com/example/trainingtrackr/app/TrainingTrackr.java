@@ -20,7 +20,7 @@ public class TrainingTrackr extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        db = Room.databaseBuilder(this, TrackrRoomDatabase.class, "my-db").allowMainThreadQueries().build();
+        db = Room.databaseBuilder(this, TrackrRoomDatabase.class, "my-db2").allowMainThreadQueries().build();
     }
 
     public static Context getAppContext() {

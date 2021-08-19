@@ -3,8 +3,9 @@ package com.example.trainingtrackr.ui.trainings;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.trainingtrackr.model.Training;
-import com.example.trainingtrackr.model.TrainingRepository;
+import com.example.trainingtrackr.model.exercise.Exercise;
+import com.example.trainingtrackr.model.training.Training;
+import com.example.trainingtrackr.model.training.TrainingRepository;
 
 import java.util.List;
 
@@ -20,8 +21,14 @@ public class TrainingsViewModel extends ViewModel {
         trainingRepository.addTraining(training);
    }
 
+   public void addExercise(Exercise exercise) {
+        trainingRepository.addExercise(exercise);
+   }
+
    public LiveData<List<Training>> getTrainings() {
         return trainingRepository.getTrainings();
    }
+
+   public LiveData<List<Exercise>> getExercisesByTrainingId(long trainingId) {return trainingRepository.getExercisesByTrainingId(trainingId);}
 
 }

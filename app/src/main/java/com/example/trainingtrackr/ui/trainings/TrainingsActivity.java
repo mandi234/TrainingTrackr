@@ -15,12 +15,10 @@ import android.view.View;
 
 import com.example.trainingtrackr.R;
 import com.example.trainingtrackr.adapters.TrainingsAdapter;
-import com.example.trainingtrackr.model.Training;
+import com.example.trainingtrackr.model.training.Training;
 import com.example.trainingtrackr.utils.InjectorUtils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class TrainingsActivity extends AppCompatActivity {
@@ -50,7 +48,6 @@ public class TrainingsActivity extends AppCompatActivity {
             @Override
             public void onChanged(List<Training> trainings) {
                 initAdapter(TrainingsActivity.this, trainings);
-                System.out.println(trainings.toString());
             }
         });
 
@@ -73,11 +70,12 @@ public class TrainingsActivity extends AppCompatActivity {
         recyclerView.setAdapter(trainingsAdapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        //DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
-        //dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.exercise_item_divider));
-        //recyclerView.addItemDecoration(dividerItemDecoration);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
+        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.exercise_item_divider));
+        recyclerView.addItemDecoration(dividerItemDecoration);
 
     }
+
 
 
 }

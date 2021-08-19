@@ -1,17 +1,23 @@
 package com.example.trainingtrackr.ui.exercies;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.os.Bundle;
 
 import com.example.trainingtrackr.R;
 import com.example.trainingtrackr.adapters.ExercisesAdapter;
-import com.example.trainingtrackr.model.Exercise;
+import com.example.trainingtrackr.model.exercise.Exercise;
+import com.example.trainingtrackr.ui.trainings.TrainingsViewModel;
+import com.example.trainingtrackr.ui.trainings.TrainingsViewModelFactory;
+import com.example.trainingtrackr.utils.InjectorUtils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -22,7 +28,7 @@ public class ExercisesActivity extends AppCompatActivity {
     private List<Exercise> exercisesList;
     private RecyclerView recyclerView;
     private FloatingActionButton addExerciseFab;
-    private ExercisesAdapter trainingAdapter;
+    private ExercisesAdapter exercisesAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,23 +38,33 @@ public class ExercisesActivity extends AppCompatActivity {
         addExerciseFab = findViewById(R.id.add_exercise_fab);
         exercisesList = new ArrayList<>();
 
+        long trainingId = getIntent().getLongExtra("trainingId", 0);
+        TrainingsViewModelFactory factory = InjectorUtils.provideTrainingsViewModelFactory();
+        TrainingsViewModel trainingsViewModel = new ViewModelProvider(this, factory).get(TrainingsViewModel.class);
 
+        trainingsViewModel.getExercisesByTrainingId(trainingId).observe(this, new Observer<List<Exercise>>() {
+            @Override
+            public void onChanged(List<Exercise> exercises) {
+                initAdapter(ExercisesActivity.this, exercises);
+            }
+        });
 
-        initAdapter();
 
         addExerciseFab.setOnClickListener(v -> {
-            exercisesList.add(new Exercise());
-            trainingAdapter.notifyItemInserted(exercisesList.size()-1);
+            Exercise exercise = new Exercise(trainingId);
+            exercisesList.add(exercise);
+            trainingsViewModel.addExercise(exercise);
+            exercisesAdapter.notifyItemInserted(exercisesList.size()-1);
         });
 
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    private void initAdapter() {
-        trainingAdapter = new ExercisesAdapter(exercisesList);
+    private void initAdapter(Activity context, List<Exercise> exercises) {
+        exercisesAdapter = new ExercisesAdapter(exercises);
         RecyclerView.LayoutManager layoutManager =  new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(trainingAdapter);
+        recyclerView.setAdapter(exercisesAdapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);

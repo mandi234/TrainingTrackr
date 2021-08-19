@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.trainingtrackr.model.TrainingRepository;
+import com.example.trainingtrackr.model.training.TrainingRepository;
 
 import org.jetbrains.annotations.NotNull;
 

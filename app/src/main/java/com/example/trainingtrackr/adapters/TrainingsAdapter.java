@@ -7,31 +7,29 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.trainingtrackr.ui.trainings.TrainingsActivity;
 import com.example.trainingtrackr.R;
+import com.example.trainingtrackr.app.TrainingTrackr;
+import com.example.trainingtrackr.model.training.Training;
 import com.example.trainingtrackr.ui.exercies.ExercisesActivity;
-import com.example.trainingtrackr.model.Training;
-import com.example.trainingtrackr.ui.trainings.TrainingsViewModel;
-import com.example.trainingtrackr.ui.trainings.TrainingsViewModelFactory;
-import com.example.trainingtrackr.utils.InjectorUtils;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
+
 
 public class TrainingsAdapter extends RecyclerView.Adapter<TrainingsAdapter.MainViewHolder> {
 
     private Activity context;
     private List<Training> trainingList;
+
 
     public TrainingsAdapter(Activity context, List<Training> trainingList) {
         this.context = context;
@@ -44,6 +42,7 @@ public class TrainingsAdapter extends RecyclerView.Adapter<TrainingsAdapter.Main
     public MainViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
         View rootView = LayoutInflater.from(context).inflate(R.layout.training_card_layout, parent, false);
         return new MainViewHolder(rootView);
+
     }
 
     @Override
@@ -51,6 +50,13 @@ public class TrainingsAdapter extends RecyclerView.Adapter<TrainingsAdapter.Main
 
         Training training = trainingList.get(position);
         holder.nameTextView.setText(training.getName());
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(holder.itemView.getContext(), ExercisesActivity.class);
+            intent.putExtra("trainingId", trainingList.get(position).getId());
+            context.startActivity(intent);
+
+        });
+
     }
 
     private void showTrainingMenuPopup(@NotNull MainViewHolder holder, Context ctx) {
@@ -94,6 +100,7 @@ public class TrainingsAdapter extends RecyclerView.Adapter<TrainingsAdapter.Main
             nameTextView = itemView.findViewById(R.id.name_tv);
             buttonViewOptions = itemView.findViewById(R.id.training_options_btn);
         }
+
 
 
     }

@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.trainingtrackr.R;
-import com.example.trainingtrackr.model.Exercise;
+import com.example.trainingtrackr.model.exercise.Exercise;
 
 import org.jetbrains.annotations.NotNull;
 

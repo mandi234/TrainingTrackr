@@ -3,6 +3,7 @@ package com.example.trainingtrackr.model.training;
 
 import androidx.lifecycle.LiveData;
 
+import com.example.trainingtrackr.model.exercise.Exercise;
 import com.example.trainingtrackr.model.training.dao.TrainingDao;
 
 import java.util.List;
@@ -29,5 +30,9 @@ public class TrainingRepository {
 
     public LiveData<List<Training>> getTrainings() {
        return trainingDao.getTrainings();
+    }
+
+    public void addExercise(Exercise exercise) {
+        trainingDao.addExercise(exercise);
     }
 }

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -69,9 +70,9 @@ public class TrainingsActivity extends AppCompatActivity {
         recyclerView.setAdapter(trainingsAdapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        //DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
-        //dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.exercise_item_divider));
-        //recyclerView.addItemDecoration(dividerItemDecoration);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
+        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.exercise_item_divider));
+        recyclerView.addItemDecoration(dividerItemDecoration);
 
     }
 

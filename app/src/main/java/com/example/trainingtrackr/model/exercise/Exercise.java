@@ -1,9 +1,15 @@
 package com.example.trainingtrackr.model.exercise;
 
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-@Entity
+import com.example.trainingtrackr.model.training.Training;
+
+@Entity(foreignKeys = {@ForeignKey(entity = Training.class,
+        parentColumns = "id",
+        childColumns = "trainingId",
+        onDelete = ForeignKey.CASCADE)})
 public class Exercise {
 
     @PrimaryKey(autoGenerate = true)
@@ -18,13 +24,20 @@ public class Exercise {
     private int reps;
     private int weight;
     private String note;
+
     public Exercise() {
+
+    }
+
+    public Exercise(long trainingId) {
         this.name = "";
         this.sets = 0;
         this.reps = 0;
         this.weight = 0;
         this.note = "";
+        this.trainingId = trainingId;
     }
+
 
     public Exercise(String name, int sets, int reps, int weight, String note) {
         this.name = name;

@@ -29,6 +29,11 @@ public class FakeTrainingDao implements TrainingDao {
     }
 
     @Override
+    public LiveData<List<Exercise>> getExercisesByTrainingId(long trainingId) {
+        return null;
+    }
+
+    @Override
     public LiveData<List<Training>> getTrainings() {
         return trainings;
     }

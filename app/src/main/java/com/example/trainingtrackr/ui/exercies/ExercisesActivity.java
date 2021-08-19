@@ -1,6 +1,7 @@
 package com.example.trainingtrackr.ui.exercies;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.os.Bundle;
 
 import com.example.trainingtrackr.R;
@@ -40,8 +42,13 @@ public class ExercisesActivity extends AppCompatActivity {
         TrainingsViewModelFactory factory = InjectorUtils.provideTrainingsViewModelFactory();
         TrainingsViewModel trainingsViewModel = new ViewModelProvider(this, factory).get(TrainingsViewModel.class);
 
+        trainingsViewModel.getExercisesByTrainingId(trainingId).observe(this, new Observer<List<Exercise>>() {
+            @Override
+            public void onChanged(List<Exercise> exercises) {
+                initAdapter(ExercisesActivity.this, exercises);
+            }
+        });
 
-        initAdapter();
 
         addExerciseFab.setOnClickListener(v -> {
             Exercise exercise = new Exercise(trainingId);
@@ -53,8 +60,8 @@ public class ExercisesActivity extends AppCompatActivity {
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    private void initAdapter() {
-        exercisesAdapter = new ExercisesAdapter(exercisesList);
+    private void initAdapter(Activity context, List<Exercise> exercises) {
+        exercisesAdapter = new ExercisesAdapter(exercises);
         RecyclerView.LayoutManager layoutManager =  new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(exercisesAdapter);

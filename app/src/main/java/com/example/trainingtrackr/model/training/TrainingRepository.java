@@ -35,4 +35,8 @@ public class TrainingRepository {
     public void addExercise(Exercise exercise) {
         trainingDao.addExercise(exercise);
     }
+
+    public LiveData<List<Exercise>> getExercisesByTrainingId(long trainingId) {
+        return trainingDao.getExercisesByTrainingId(trainingId);
+    }
 }

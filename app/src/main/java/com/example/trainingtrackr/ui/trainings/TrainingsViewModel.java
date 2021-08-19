@@ -29,4 +29,6 @@ public class TrainingsViewModel extends ViewModel {
         return trainingRepository.getTrainings();
    }
 
+   public LiveData<List<Exercise>> getExercisesByTrainingId(long trainingId) {return trainingRepository.getExercisesByTrainingId(trainingId);}
+
 }

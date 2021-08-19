@@ -23,6 +23,9 @@ public interface TrainingDao {
     @Insert
     void addExercise(Exercise exercise);
 
+    @Transaction
+    @Query("select * from exercise where trainingId = :trainingId")
+    LiveData<List<Exercise>> getExercisesByTrainingId(long trainingId);
 
 
 }

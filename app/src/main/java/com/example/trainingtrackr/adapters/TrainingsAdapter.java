@@ -29,11 +29,13 @@ public class TrainingsAdapter extends RecyclerView.Adapter<TrainingsAdapter.Main
 
     private Activity context;
     private List<Training> trainingList;
+    private OnTrainingListener onTrainingListener;
 
 
-    public TrainingsAdapter(Activity context, List<Training> trainingList) {
+    public TrainingsAdapter(Activity context, List<Training> trainingList, OnTrainingListener onTrainingListener) {
         this.context = context;
         this.trainingList = trainingList;
+        this.onTrainingListener = onTrainingListener;
     }
 
     @NonNull
@@ -41,7 +43,7 @@ public class TrainingsAdapter extends RecyclerView.Adapter<TrainingsAdapter.Main
     @Override
     public MainViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
         View rootView = LayoutInflater.from(context).inflate(R.layout.training_card_layout, parent, false);
-        return new MainViewHolder(rootView);
+        return new MainViewHolder(rootView, onTrainingListener);
 
     }
 
@@ -50,14 +52,6 @@ public class TrainingsAdapter extends RecyclerView.Adapter<TrainingsAdapter.Main
 
         Training training = trainingList.get(position);
         holder.nameTextView.setText(training.getName());
-        holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(holder.itemView.getContext(), ExercisesActivity.class);
-            intent.putExtra("trainingId", trainingList.get(position).getId());
-            context.startActivity(intent);
-
-        });
-
-
 
     }
 
@@ -89,21 +83,32 @@ public class TrainingsAdapter extends RecyclerView.Adapter<TrainingsAdapter.Main
         return trainingList.size();
     }
 
-    public class MainViewHolder extends RecyclerView.ViewHolder {
+    public class MainViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView dateTextView;
         private TextView nameTextView;
         private TextView buttonViewOptions;
+        private OnTrainingListener onTrainingListener;
 
-        public MainViewHolder(@NonNull @NotNull View itemView) {
+        public MainViewHolder(@NonNull @NotNull View itemView, OnTrainingListener onTrainingListener) {
             super(itemView);
 
             dateTextView = itemView.findViewById(R.id.date_tv);
             nameTextView = itemView.findViewById(R.id.name_tv);
             buttonViewOptions = itemView.findViewById(R.id.training_options_btn);
+
+            this.onTrainingListener = onTrainingListener;
+            itemView.setOnClickListener(this);
         }
 
 
+        @Override
+        public void onClick(View v) {
+            onTrainingListener.onTrainingClick(getAbsoluteAdapterPosition());
+        }
+    }
 
+    public interface OnTrainingListener {
+        void onTrainingClick(int position);
     }
 }

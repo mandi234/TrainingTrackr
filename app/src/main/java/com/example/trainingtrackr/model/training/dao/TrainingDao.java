@@ -38,6 +38,9 @@ public interface TrainingDao {
     @Update
     int updateExercises(List<Exercise> exercises);
 
+    @Update
+    int updateTrainings(List<Training> trainings);
+
     @Delete
     void deleteTraining(Training training);
 

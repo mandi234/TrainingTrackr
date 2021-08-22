@@ -52,6 +52,10 @@ public class TrainingRepository {
         return trainingDao.updateExercises(exercises);
     }
 
+    public int updateTrainings(List<Training> trainings) {
+        return trainingDao.updateTrainings(trainings);
+    }
+
     public void deleteTraining(Training training) {
         trainingDao.deleteTraining(training);
     }

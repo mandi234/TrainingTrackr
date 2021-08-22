@@ -96,4 +96,10 @@ public class TrainingsActivity extends AppCompatActivity implements TrainingsAda
         appViewModel.deleteTraining(trainingsList.get(position));
         return true;
     }
+
+    @Override
+    protected void onStop() {
+        appViewModel.updateTrainings(trainingsList);
+        super.onStop();
+    }
 }

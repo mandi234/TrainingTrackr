@@ -3,6 +3,7 @@ package com.example.trainingtrackr.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -36,8 +37,8 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.Exce
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull ExercisesAdapter.ExcerciseViewHolder holder, int position) {
-        String exerciseName = exercisesList.get(position).getName();
-
+        int exerciseReps = exercisesList.get(position).getReps();
+        holder.repsEditText.setText(Integer.toString(exerciseReps));
     }
 
     @Override
@@ -49,9 +50,17 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.Exce
         implements View.OnLongClickListener {
 
         private OnExerciseListener onExerciseListener;
+        private EditText repsEditText;
+        private EditText setsEditText;
+        private EditText weightEditText;
 
         public ExcerciseViewHolder(@NonNull @NotNull View itemView, OnExerciseListener onExerciseListener) {
             super(itemView);
+
+            repsEditText = itemView.findViewById(R.id.reps_etn);
+            setsEditText = itemView.findViewById(R.id.sets_etn);
+            weightEditText = itemView.findViewById(R.id.weight_etn);
+
 
             this.onExerciseListener = onExerciseListener;
             itemView.setOnLongClickListener(this::onLongClick);

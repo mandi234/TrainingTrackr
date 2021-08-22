@@ -78,8 +78,13 @@ public class ExercisesActivity extends AppCompatActivity implements ExercisesAda
 
     @Override
     public boolean onExerciseLongClick(int position) {
-        //Toast.makeText(this, "KUTOOOS", Toast.LENGTH_LONG).show();
         appViewModel.deleteExercise(exercisesList.get(position));
         return true;
+    }
+
+    @Override
+    protected void onStop() {
+        appViewModel.updateExercises(exercisesList);
+        super.onStop();
     }
 }

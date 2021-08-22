@@ -49,6 +49,11 @@ public class FakeTrainingDao implements TrainingDao {
     }
 
     @Override
+    public int updateTrainings(List<Training> trainings) {
+        return 0;
+    }
+
+    @Override
     public void deleteTraining(Training training) {
 
     }

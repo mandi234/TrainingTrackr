@@ -2,12 +2,10 @@ package com.example.trainingtrackr.adapters;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,16 +14,14 @@ import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.trainingtrackr.R;
-import com.example.trainingtrackr.app.TrainingTrackr;
 import com.example.trainingtrackr.model.training.Training;
-import com.example.trainingtrackr.ui.exercies.ExercisesActivity;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 
-public class TrainingsAdapter extends RecyclerView.Adapter<TrainingsAdapter.MainViewHolder> {
+public class TrainingsAdapter extends RecyclerView.Adapter<TrainingsAdapter.TrainingViewHolder> {
 
     private Activity context;
     private List<Training> trainingList;
@@ -41,21 +37,21 @@ public class TrainingsAdapter extends RecyclerView.Adapter<TrainingsAdapter.Main
     @NonNull
     @NotNull
     @Override
-    public MainViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
+    public TrainingsAdapter.TrainingViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
         View rootView = LayoutInflater.from(context).inflate(R.layout.training_card_layout, parent, false);
-        return new MainViewHolder(rootView, onTrainingListener);
+        return new TrainingViewHolder(rootView, onTrainingListener);
 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull @NotNull TrainingsAdapter.MainViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull @NotNull TrainingsAdapter.TrainingViewHolder holder, int position) {
 
         Training training = trainingList.get(position);
         holder.nameTextView.setText(training.getName());
 
     }
 
-    private void showTrainingMenuPopup(@NotNull MainViewHolder holder, Context ctx) {
+    private void showTrainingMenuPopup(@NotNull TrainingsAdapter.TrainingViewHolder holder, Context ctx) {
         PopupMenu popup = new PopupMenu(ctx, holder.buttonViewOptions);
         popup.inflate(R.menu.training_options_menu);
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -83,7 +79,7 @@ public class TrainingsAdapter extends RecyclerView.Adapter<TrainingsAdapter.Main
         return trainingList.size();
     }
 
-    public class MainViewHolder extends RecyclerView.ViewHolder
+    public class TrainingViewHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener, View.OnLongClickListener {
 
         private TextView dateTextView;
@@ -91,7 +87,7 @@ public class TrainingsAdapter extends RecyclerView.Adapter<TrainingsAdapter.Main
         private TextView buttonViewOptions;
         private OnTrainingListener onTrainingListener;
 
-        public MainViewHolder(@NonNull @NotNull View itemView, OnTrainingListener onTrainingListener) {
+        public TrainingViewHolder(@NonNull @NotNull View itemView, OnTrainingListener onTrainingListener) {
             super(itemView);
 
             dateTextView = itemView.findViewById(R.id.date_tv);

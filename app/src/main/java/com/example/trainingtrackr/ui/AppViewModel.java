@@ -43,6 +43,10 @@ public class AppViewModel extends ViewModel {
         return trainingRepository.updateExercises(exercises);
    }
 
+    public int updateTrainings(List<Training> trainings) {
+        return trainingRepository.updateTrainings(trainings);
+    }
+
    public void deleteTraining(Training training) {
         trainingRepository.deleteTraining(training);
    }

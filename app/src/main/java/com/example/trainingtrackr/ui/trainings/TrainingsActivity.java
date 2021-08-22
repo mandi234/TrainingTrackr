@@ -16,6 +16,8 @@ import android.view.View;
 import com.example.trainingtrackr.R;
 import com.example.trainingtrackr.adapters.TrainingsAdapter;
 import com.example.trainingtrackr.model.training.Training;
+import com.example.trainingtrackr.ui.AppViewModel;
+import com.example.trainingtrackr.ui.AppViewModelFactory;
 import com.example.trainingtrackr.utils.InjectorUtils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -40,11 +42,11 @@ public class TrainingsActivity extends AppCompatActivity {
     }
 
     private void initUI() {
-        TrainingsViewModelFactory factory = InjectorUtils.provideTrainingsViewModelFactory();
-        TrainingsViewModel trainingsViewModel = new ViewModelProvider(this, factory).get(TrainingsViewModel.class);
+        AppViewModelFactory factory = InjectorUtils.provideTrainingsViewModelFactory();
+        AppViewModel appViewModel = new ViewModelProvider(this, factory).get(AppViewModel.class);
 
 
-        trainingsViewModel.getTrainings().observe(this, new Observer<List<Training>>() {
+        appViewModel.getTrainings().observe(this, new Observer<List<Training>>() {
             @Override
             public void onChanged(List<Training> trainings) {
                 initAdapter(TrainingsActivity.this, trainings);
@@ -55,7 +57,7 @@ public class TrainingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 fabClicks++;
-                trainingsViewModel.addTraining(new Training(""+fabClicks));
+                appViewModel.addTraining(new Training(""+fabClicks));
 
             }
         });

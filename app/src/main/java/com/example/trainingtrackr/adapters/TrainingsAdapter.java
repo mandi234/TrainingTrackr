@@ -57,6 +57,8 @@ public class TrainingsAdapter extends RecyclerView.Adapter<TrainingsAdapter.Main
 
         });
 
+
+
     }
 
     private void showTrainingMenuPopup(@NotNull MainViewHolder holder, Context ctx) {

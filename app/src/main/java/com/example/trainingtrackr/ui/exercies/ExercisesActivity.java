@@ -15,8 +15,8 @@ import android.os.Bundle;
 import com.example.trainingtrackr.R;
 import com.example.trainingtrackr.adapters.ExercisesAdapter;
 import com.example.trainingtrackr.model.exercise.Exercise;
-import com.example.trainingtrackr.ui.trainings.TrainingsViewModel;
-import com.example.trainingtrackr.ui.trainings.TrainingsViewModelFactory;
+import com.example.trainingtrackr.ui.AppViewModel;
+import com.example.trainingtrackr.ui.AppViewModelFactory;
 import com.example.trainingtrackr.utils.InjectorUtils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -39,10 +39,10 @@ public class ExercisesActivity extends AppCompatActivity {
         exercisesList = new ArrayList<>();
 
         long trainingId = getIntent().getLongExtra("trainingId", 0);
-        TrainingsViewModelFactory factory = InjectorUtils.provideTrainingsViewModelFactory();
-        TrainingsViewModel trainingsViewModel = new ViewModelProvider(this, factory).get(TrainingsViewModel.class);
+        AppViewModelFactory factory = InjectorUtils.provideTrainingsViewModelFactory();
+        AppViewModel appViewModel = new ViewModelProvider(this, factory).get(AppViewModel.class);
 
-        trainingsViewModel.getExercisesByTrainingId(trainingId).observe(this, new Observer<List<Exercise>>() {
+        appViewModel.getExercisesByTrainingId(trainingId).observe(this, new Observer<List<Exercise>>() {
             @Override
             public void onChanged(List<Exercise> exercises) {
                 initAdapter(ExercisesActivity.this, exercises);
@@ -53,7 +53,7 @@ public class ExercisesActivity extends AppCompatActivity {
         addExerciseFab.setOnClickListener(v -> {
             Exercise exercise = new Exercise(trainingId);
             exercisesList.add(exercise);
-            trainingsViewModel.addExercise(exercise);
+            appViewModel.addExercise(exercise);
             exercisesAdapter.notifyItemInserted(exercisesList.size()-1);
         });
 

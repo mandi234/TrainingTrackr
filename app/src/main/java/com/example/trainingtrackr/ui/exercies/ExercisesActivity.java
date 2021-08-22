@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.example.trainingtrackr.R;
 import com.example.trainingtrackr.adapters.ExercisesAdapter;
@@ -23,12 +24,13 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExercisesActivity extends AppCompatActivity {
+public class ExercisesActivity extends AppCompatActivity implements ExercisesAdapter.OnExerciseListener {
 
     private List<Exercise> exercisesList;
     private RecyclerView recyclerView;
     private FloatingActionButton addExerciseFab;
     private ExercisesAdapter exercisesAdapter;
+    private AppViewModel appViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +42,12 @@ public class ExercisesActivity extends AppCompatActivity {
 
         long trainingId = getIntent().getLongExtra("trainingId", 0);
         AppViewModelFactory factory = InjectorUtils.provideTrainingsViewModelFactory();
-        AppViewModel appViewModel = new ViewModelProvider(this, factory).get(AppViewModel.class);
+        appViewModel = new ViewModelProvider(this, factory).get(AppViewModel.class);
 
         appViewModel.getExercisesByTrainingId(trainingId).observe(this, new Observer<List<Exercise>>() {
             @Override
             public void onChanged(List<Exercise> exercises) {
+                exercisesList = exercises;
                 initAdapter(ExercisesActivity.this, exercises);
             }
         });
@@ -52,16 +55,16 @@ public class ExercisesActivity extends AppCompatActivity {
 
         addExerciseFab.setOnClickListener(v -> {
             Exercise exercise = new Exercise(trainingId);
-            exercisesList.add(exercise);
+
             appViewModel.addExercise(exercise);
-            exercisesAdapter.notifyItemInserted(exercisesList.size()-1);
+
         });
 
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private void initAdapter(Activity context, List<Exercise> exercises) {
-        exercisesAdapter = new ExercisesAdapter(exercises);
+        exercisesAdapter = new ExercisesAdapter(exercises, this::onExerciseLongClick);
         RecyclerView.LayoutManager layoutManager =  new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(exercisesAdapter);
@@ -71,5 +74,12 @@ public class ExercisesActivity extends AppCompatActivity {
         dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.exercise_item_divider));
         recyclerView.addItemDecoration(dividerItemDecoration);
 
+    }
+
+    @Override
+    public boolean onExerciseLongClick(int position) {
+        //Toast.makeText(this, "KUTOOOS", Toast.LENGTH_LONG).show();
+        appViewModel.deleteExercise(exercisesList.get(position));
+        return true;
     }
 }

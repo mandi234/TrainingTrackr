@@ -17,9 +17,11 @@ import java.util.List;
 public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.ExcerciseViewHolder> {
 
     private List<Exercise> exercisesList;
+    private OnExerciseListener onExerciseListener;
 
 
-    public ExercisesAdapter(List<Exercise> exercisesList) {
+    public ExercisesAdapter(List<Exercise> exercisesList, OnExerciseListener onExerciseListener) {
+        this.onExerciseListener = onExerciseListener;
         this.exercisesList = exercisesList;
     }
 
@@ -29,7 +31,7 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.Exce
     @Override
     public ExcerciseViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.exercise_card_layout, parent, false);
-        return new ExcerciseViewHolder(itemView);
+        return new ExcerciseViewHolder(itemView, onExerciseListener);
     }
 
     @Override
@@ -43,15 +45,27 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.Exce
         return exercisesList.size();
     }
 
-    public class ExcerciseViewHolder extends RecyclerView.ViewHolder {
+    public class ExcerciseViewHolder extends RecyclerView.ViewHolder
+        implements View.OnLongClickListener {
 
+        private OnExerciseListener onExerciseListener;
 
-
-        public ExcerciseViewHolder(@NonNull @NotNull View itemView) {
+        public ExcerciseViewHolder(@NonNull @NotNull View itemView, OnExerciseListener onExerciseListener) {
             super(itemView);
 
-
+            this.onExerciseListener = onExerciseListener;
+            itemView.setOnLongClickListener(this::onLongClick);
         }
+
+        @Override
+        public boolean onLongClick(View v) {
+            onExerciseListener.onExerciseLongClick(getAbsoluteAdapterPosition());
+            return true;
+        }
+    }
+
+    public interface OnExerciseListener {
+        boolean onExerciseLongClick(int position);
     }
 }
 

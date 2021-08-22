@@ -32,6 +32,7 @@ public class TrainingsActivity extends AppCompatActivity implements TrainingsAda
 
     private static int fabClicks = 0;
     private List<Training> trainingsList;
+    private AppViewModel appViewModel;
 
 
 
@@ -46,7 +47,7 @@ public class TrainingsActivity extends AppCompatActivity implements TrainingsAda
 
     private void initUI() {
         AppViewModelFactory factory = InjectorUtils.provideTrainingsViewModelFactory();
-        AppViewModel appViewModel = new ViewModelProvider(this, factory).get(AppViewModel.class);
+        appViewModel = new ViewModelProvider(this, factory).get(AppViewModel.class);
 
 
         appViewModel.getTrainings().observe(this, new Observer<List<Training>>() {
@@ -88,5 +89,11 @@ public class TrainingsActivity extends AppCompatActivity implements TrainingsAda
         Intent intent = new Intent(TrainingsActivity.this, ExercisesActivity.class);
         intent.putExtra("trainingId", trainingsList.get(position).getId());
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onTrainingLongClick(int position) {
+        appViewModel.deleteTraining(trainingsList.get(position));
+        return true;
     }
 }

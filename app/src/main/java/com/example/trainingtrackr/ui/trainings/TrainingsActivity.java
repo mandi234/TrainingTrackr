@@ -67,6 +67,9 @@ public class TrainingsActivity extends AppCompatActivity implements TrainingsAda
             }
         });
 
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
+        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.exercise_item_divider));
+        recyclerView.addItemDecoration(dividerItemDecoration);
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -77,9 +80,7 @@ public class TrainingsActivity extends AppCompatActivity implements TrainingsAda
         recyclerView.setAdapter(trainingsAdapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
-        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.exercise_item_divider));
-        recyclerView.addItemDecoration(dividerItemDecoration);
+
 
     }
 

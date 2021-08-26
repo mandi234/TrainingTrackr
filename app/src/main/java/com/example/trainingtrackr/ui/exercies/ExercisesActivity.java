@@ -66,6 +66,9 @@ public class ExercisesActivity extends AppCompatActivity implements ExercisesAda
             appViewModel.addExercise(exercise);
 
         });
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
+        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.exercise_item_divider));
+        recyclerView.addItemDecoration(dividerItemDecoration);
 
     }
 
@@ -76,11 +79,6 @@ public class ExercisesActivity extends AppCompatActivity implements ExercisesAda
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(exercisesAdapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
-        dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.exercise_item_divider));
-        recyclerView.addItemDecoration(dividerItemDecoration);
-
     }
 
     @Override
@@ -92,10 +90,8 @@ public class ExercisesActivity extends AppCompatActivity implements ExercisesAda
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onStop() {
-        updateExercises();
-        ExercisesAdapter.ExcerciseViewHolder holder = (ExercisesAdapter.ExcerciseViewHolder) recyclerView.findViewHolderForLayoutPosition(0);
-        System.out.println(holder.getRepsEditText().getText().toString());
-        appViewModel.updateExercises(exercisesAdapter.getExercisesList());
+        if( !exercisesList.isEmpty())
+            updateExercises();
         super.onStop();
     }
 

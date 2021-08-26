@@ -1,5 +1,6 @@
 package com.example.trainingtrackr.ui.exercies;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -10,7 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.trainingtrackr.R;
@@ -23,6 +26,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class ExercisesActivity extends AppCompatActivity implements ExercisesAdapter.OnExerciseListener {
 
@@ -30,6 +35,7 @@ public class ExercisesActivity extends AppCompatActivity implements ExercisesAda
     private RecyclerView recyclerView;
     private FloatingActionButton addExerciseFab;
     private ExercisesAdapter exercisesAdapter;
+    private RecyclerView.LayoutManager layoutManager;
     private AppViewModel appViewModel;
 
     @Override
@@ -45,6 +51,7 @@ public class ExercisesActivity extends AppCompatActivity implements ExercisesAda
         appViewModel = new ViewModelProvider(this, factory).get(AppViewModel.class);
 
         appViewModel.getExercisesByTrainingId(trainingId).observe(this, new Observer<List<Exercise>>() {
+
             @Override
             public void onChanged(List<Exercise> exercises) {
                 exercisesList = exercises;
@@ -65,7 +72,7 @@ public class ExercisesActivity extends AppCompatActivity implements ExercisesAda
     @SuppressLint("UseCompatLoadingForDrawables")
     private void initAdapter(Activity context, List<Exercise> exercises) {
         exercisesAdapter = new ExercisesAdapter(exercises, this::onExerciseLongClick);
-        RecyclerView.LayoutManager layoutManager =  new LinearLayoutManager(getApplicationContext());
+        layoutManager =  new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(exercisesAdapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -82,9 +89,27 @@ public class ExercisesActivity extends AppCompatActivity implements ExercisesAda
         return true;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onStop() {
-        appViewModel.updateExercises(exercisesList);
+        updateExercises();
+        ExercisesAdapter.ExcerciseViewHolder holder = (ExercisesAdapter.ExcerciseViewHolder) recyclerView.findViewHolderForLayoutPosition(0);
+        System.out.println(holder.getRepsEditText().getText().toString());
+        appViewModel.updateExercises(exercisesAdapter.getExercisesList());
         super.onStop();
     }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void updateExercises() {
+        for(int i = 0; i < exercisesList.size(); i++) {
+            ExercisesAdapter.ExcerciseViewHolder holder = (ExercisesAdapter.ExcerciseViewHolder) recyclerView.findViewHolderForLayoutPosition(0);
+            exercisesList.get(i).setReps(Integer.parseInt(holder.getRepsEditText().getText().toString()));
+            exercisesList.get(i).setSets(Integer.parseInt(holder.getSetsEditText().getText().toString()));
+            exercisesList.get(i).setWeight(Integer.parseInt(holder.getWeightEditText().getText().toString()));
+        }
+        appViewModel.updateExercises(exercisesList);
+    }
+
+
 }

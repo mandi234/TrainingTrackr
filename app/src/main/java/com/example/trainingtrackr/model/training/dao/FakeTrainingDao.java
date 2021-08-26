@@ -34,6 +34,36 @@ public class FakeTrainingDao implements TrainingDao {
     }
 
     @Override
+    public void updateTraining(Training training) {
+
+    }
+
+    @Override
+    public void updateExercise(Exercise exercise) {
+
+    }
+
+    @Override
+    public int updateExercises(List<Exercise> exercises) {
+        return 0;
+    }
+
+    @Override
+    public int updateTrainings(List<Training> trainings) {
+        return 0;
+    }
+
+    @Override
+    public void deleteTraining(Training training) {
+
+    }
+
+    @Override
+    public void deleteExercise(Exercise exercise) {
+
+    }
+
+    @Override
     public LiveData<List<Training>> getTrainings() {
         return trainings;
     }

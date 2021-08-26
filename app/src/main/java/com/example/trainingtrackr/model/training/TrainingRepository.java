@@ -39,4 +39,28 @@ public class TrainingRepository {
     public LiveData<List<Exercise>> getExercisesByTrainingId(long trainingId) {
         return trainingDao.getExercisesByTrainingId(trainingId);
     }
+
+    public void updateTraining(Training training) {
+        trainingDao.updateTraining(training);
+    }
+
+    public void updateExercise(Exercise exercise) {
+        trainingDao.updateExercise(exercise);
+    }
+
+    public int updateExercises(List<Exercise> exercises) {
+        return trainingDao.updateExercises(exercises);
+    }
+
+    public int updateTrainings(List<Training> trainings) {
+        return trainingDao.updateTrainings(trainings);
+    }
+
+    public void deleteTraining(Training training) {
+        trainingDao.deleteTraining(training);
+    }
+
+    public void deleteExercise(Exercise exercise) {
+        trainingDao.deleteExercise(exercise);
+    }
 }

@@ -19,7 +19,7 @@ public interface TrainingDao {
     @Insert
     void addTraining(Training training);
 
-    @Query("Select * from training order by id desc")
+    @Query("Select * from training order by date desc")
     LiveData<List<Training>> getTrainings();
 
     @Insert

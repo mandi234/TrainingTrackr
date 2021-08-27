@@ -1,6 +1,9 @@
 package com.example.trainingtrackr.model.training;
 
+import android.os.Build;
+
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -8,6 +11,9 @@ import androidx.room.Relation;
 
 import com.example.trainingtrackr.model.exercise.Exercise;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -24,17 +30,26 @@ public class Training {
     @ColumnInfo(name ="name")
     private String name;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public Training() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDateTime now = LocalDateTime.now();
+        this.date = dtf.format(now);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public Training(String name) {
+        this();
         this.name = name;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public Training(String date, String name) {
         this(name);
         this.date = date;
     }
+
+
 
 
 

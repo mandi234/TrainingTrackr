@@ -48,7 +48,7 @@ public class TrainingsAdapter extends RecyclerView.Adapter<TrainingsAdapter.Trai
 
         Training training = trainingList.get(position);
         holder.nameTextView.setText(training.getName());
-
+        holder.dateTextView.setText(training.getDate());
     }
 
     private void showTrainingMenuPopup(@NotNull TrainingsAdapter.TrainingViewHolder holder, Context ctx) {
@@ -97,8 +97,12 @@ public class TrainingsAdapter extends RecyclerView.Adapter<TrainingsAdapter.Trai
             this.onTrainingListener = onTrainingListener;
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this::onLongClick);
+            dateTextView.setOnClickListener(this::onDateClick);
         }
 
+        public void onDateClick(View v) {
+            onTrainingListener.onDateClick(getAbsoluteAdapterPosition());
+        }
 
         @Override
         public void onClick(View v) {
@@ -116,5 +120,6 @@ public class TrainingsAdapter extends RecyclerView.Adapter<TrainingsAdapter.Trai
     public interface OnTrainingListener {
         void onTrainingClick(int position);
         boolean onTrainingLongClick(int position);
+        void onDateClick(int position);
     }
 }

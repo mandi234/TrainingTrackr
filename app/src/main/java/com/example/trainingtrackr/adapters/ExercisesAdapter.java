@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -52,6 +53,7 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.Exce
         holder.repsEditText.setText(Integer.toString(exercise.getReps()));
         holder.setsEditText.setText(Integer.toString(exercise.getSets()));
         holder.weightEditText.setText(Integer.toString(exercise.getWeight()));
+
 
     }
 
@@ -106,6 +108,7 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.Exce
         }
 
         private EditText weightEditText;
+        private Spinner nameSpinner;
 
         public ExcerciseViewHolder(@NonNull @NotNull View itemView, OnExerciseListener onExerciseListener) {
             super(itemView);
@@ -113,6 +116,7 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.Exce
             repsEditText = itemView.findViewById(R.id.reps_etn);
             setsEditText = itemView.findViewById(R.id.sets_etn);
             weightEditText = itemView.findViewById(R.id.weight_etn);
+            nameSpinner = itemView.findViewById(R.id.exercise_spinner);
 
             this.onExerciseListener = onExerciseListener;
             itemView.setOnLongClickListener(this::onLongClick);

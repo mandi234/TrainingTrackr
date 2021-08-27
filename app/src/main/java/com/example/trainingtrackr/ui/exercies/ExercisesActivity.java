@@ -22,6 +22,7 @@ import com.example.trainingtrackr.model.exercise.Exercise;
 import com.example.trainingtrackr.ui.AppViewModel;
 import com.example.trainingtrackr.ui.AppViewModelFactory;
 import com.example.trainingtrackr.utils.InjectorUtils;
+import com.example.trainingtrackr.utils.InputParser;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -99,10 +100,10 @@ public class ExercisesActivity extends AppCompatActivity implements ExercisesAda
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void updateExercises() {
         for(int i = 0; i < exercisesList.size(); i++) {
-            ExercisesAdapter.ExcerciseViewHolder holder = (ExercisesAdapter.ExcerciseViewHolder) recyclerView.findViewHolderForLayoutPosition(0);
-            exercisesList.get(i).setReps(Integer.parseInt(holder.getRepsEditText().getText().toString()));
-            exercisesList.get(i).setSets(Integer.parseInt(holder.getSetsEditText().getText().toString()));
-            exercisesList.get(i).setWeight(Integer.parseInt(holder.getWeightEditText().getText().toString()));
+            ExercisesAdapter.ExcerciseViewHolder holder = (ExercisesAdapter.ExcerciseViewHolder) recyclerView.findViewHolderForLayoutPosition(i);
+            exercisesList.get(i).setReps(InputParser.parseInt(holder.getRepsEditText().getText().toString()));
+            exercisesList.get(i).setSets(InputParser.parseInt(holder.getSetsEditText().getText().toString()));
+            exercisesList.get(i).setWeight(InputParser.parseInt(holder.getWeightEditText().getText().toString()));
         }
         appViewModel.updateExercises(exercisesList);
     }

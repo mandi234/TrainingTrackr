@@ -6,6 +6,7 @@ import android.content.Context;
 import androidx.room.Room;
 
 import com.example.trainingtrackr.database.TrackrRoomDatabase;
+import com.example.trainingtrackr.utils.InputParser;
 
 public class TrainingTrackr extends Application {
 
@@ -20,6 +21,8 @@ public class TrainingTrackr extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        int t = InputParser.parseInt("         ");
+        System.out.println(t);
         db = Room.databaseBuilder(this, TrackrRoomDatabase.class, "training-trackr-db").allowMainThreadQueries().build();
     }
 

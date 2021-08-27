@@ -60,6 +60,7 @@
         android:layout_alignParentRight="true"
         android:gravity="center_horizontal"
         android:text="&#8942;"
+        android:textStyle="bold"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="34sp"
 

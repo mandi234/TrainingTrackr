@@ -47,6 +47,15 @@ public class Exercise {
         this.note = note;
     }
 
+    public Exercise(Exercise exercise, long trainingId) {
+        this.name = exercise.getName();
+        this.sets = exercise.getSets();
+        this.reps = exercise.getReps();
+        this.weight = exercise.getWeight();
+        this.note = exercise.getNote();
+        this.trainingId = trainingId;
+    }
+
     public long getId() {
         return id;
     }

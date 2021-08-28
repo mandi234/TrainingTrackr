@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Transaction;
 import androidx.room.Update;
@@ -17,13 +18,17 @@ import java.util.List;
 public interface TrainingDao {
 
     @Insert
-    void addTraining(Training training);
+    long addTraining(Training training);
+
 
     @Query("Select * from training order by date desc")
     LiveData<List<Training>> getTrainings();
 
     @Insert
     void addExercise(Exercise exercise);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void addExercisesList(List<Exercise> exercises);
 
     @Transaction
     @Query("select * from exercise where trainingId = :trainingId")

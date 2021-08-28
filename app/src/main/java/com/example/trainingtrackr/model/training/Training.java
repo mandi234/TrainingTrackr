@@ -10,6 +10,7 @@ import androidx.room.PrimaryKey;
 import androidx.room.Relation;
 
 import com.example.trainingtrackr.model.exercise.Exercise;
+import com.example.trainingtrackr.ui.trainings.TrainingsActivity;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -48,9 +49,6 @@ public class Training {
         this(name);
         this.date = date;
     }
-
-
-
 
 
     public long getId() {

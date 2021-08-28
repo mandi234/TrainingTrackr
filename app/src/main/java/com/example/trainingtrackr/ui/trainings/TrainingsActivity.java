@@ -2,6 +2,8 @@ package com.example.trainingtrackr.ui.trainings;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.PopupMenu;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -15,11 +17,14 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.Toast;
 
 import com.example.trainingtrackr.R;
 import com.example.trainingtrackr.adapters.TrainingsAdapter;
+import com.example.trainingtrackr.model.exercise.Exercise;
 import com.example.trainingtrackr.model.training.Training;
 import com.example.trainingtrackr.ui.AppViewModel;
 import com.example.trainingtrackr.ui.AppViewModelFactory;
@@ -27,6 +32,7 @@ import com.example.trainingtrackr.ui.exercies.ExercisesActivity;
 import com.example.trainingtrackr.utils.InjectorUtils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.sql.SQLOutput;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
@@ -41,6 +47,8 @@ public class TrainingsActivity extends AppCompatActivity implements TrainingsAda
     private static int fabClicks = 0;
     private List<Training> trainingsList;
     private AppViewModel appViewModel;
+
+    private LiveData<List<Exercise>> liveCopiedTrainingExercises;
 
 
 
@@ -105,7 +113,7 @@ public class TrainingsActivity extends AppCompatActivity implements TrainingsAda
 
     @Override
     public boolean onTrainingLongClick(int position) {
-        appViewModel.deleteTraining(trainingsList.get(position));
+        //appViewModel.deleteTraining(trainingsList.get(position));
         return true;
     }
 
@@ -128,9 +136,49 @@ public class TrainingsActivity extends AppCompatActivity implements TrainingsAda
         StartTime.show();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @Override
+    public void onOptionsClick(int position) {
+        TrainingsAdapter.TrainingViewHolder holder = (TrainingsAdapter.TrainingViewHolder) recyclerView.findViewHolderForLayoutPosition(position);
+        PopupMenu popup = new PopupMenu(TrainingsActivity.this, holder.getButtonViewOptions());
+        popup.inflate(R.menu.training_options_menu);
+        popup.setOnMenuItemClickListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.copy_training_menu_item:
+                    Training copiedTraining = trainingsList.get(position);
+                    liveCopiedTrainingExercises = appViewModel.getExercisesByTrainingId(copiedTraining.getId());
+                    long trainingId = appViewModel.addTraining(new Training());
+                    liveCopiedTrainingExercises.observe(this, new Observer<List<Exercise>>() {
+                        boolean alreadyChanged = false;
+                        @Override
+                        public void onChanged(List<Exercise> exercises) {
+                            if(!alreadyChanged) {
+                                for(Exercise exercise : exercises) {
+                                    System.out.println("onChanged live nie rowna sie exercises");
+                                    appViewModel.addExercise(new Exercise(exercise, trainingId));
+                                }
+                                alreadyChanged = true;
+                            }
+                        }
+                    });
+                    //liveCopiedTrainingExercises.removeObservers(this);
+                    break;
+                case R.id.erase_training_menu_item:
+                    appViewModel.deleteTraining(trainingsList.get(position));
+                    break;
+
+            }
+            return false;
+        });
+        //displaying the popup
+        popup.show();
+    }
+
     @Override
     protected void onStop() {
         appViewModel.updateTrainings(trainingsList);
+        liveCopiedTrainingExercises.removeObservers(this);
+        System.out.println("piczka");
         super.onStop();
     }
 

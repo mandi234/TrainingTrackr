@@ -18,13 +18,19 @@ public class FakeTrainingDao implements TrainingDao {
     }
 
     @Override
-    public void addTraining(Training training) {
+    public long addTraining(Training training) {
         trainingList.add(0, training);
         trainings.setValue(trainingList);
+        return 0;
     }
 
     @Override
     public void addExercise(Exercise exercise) {
+
+    }
+
+    @Override
+    public void addExercisesList(List<Exercise> exercises) {
 
     }
 

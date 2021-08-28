@@ -52,25 +52,7 @@ public class TrainingsAdapter extends RecyclerView.Adapter<TrainingsAdapter.Trai
     }
 
     private void showTrainingMenuPopup(@NotNull TrainingsAdapter.TrainingViewHolder holder, Context ctx) {
-        PopupMenu popup = new PopupMenu(ctx, holder.buttonViewOptions);
-        popup.inflate(R.menu.training_options_menu);
-        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.copy_training_menu_item:
-                        Toast.makeText(ctx, "TODO: Copy training", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.erase_training_menu_item:
-                        Toast.makeText(ctx, "TODO: Erase training", Toast.LENGTH_SHORT).show();
-                        break;
 
-                }
-                return false;
-            }
-        });
-        //displaying the popup
-        popup.show();
     }
 
     @Override
@@ -84,6 +66,11 @@ public class TrainingsAdapter extends RecyclerView.Adapter<TrainingsAdapter.Trai
 
         private TextView dateTextView;
         private TextView nameTextView;
+
+        public TextView getButtonViewOptions() {
+            return buttonViewOptions;
+        }
+
         private TextView buttonViewOptions;
         private OnTrainingListener onTrainingListener;
 
@@ -98,17 +85,21 @@ public class TrainingsAdapter extends RecyclerView.Adapter<TrainingsAdapter.Trai
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this::onLongClick);
             dateTextView.setOnClickListener(this::onDateClick);
+            buttonViewOptions.setOnClickListener(this::onOptionsClick);
         }
 
         public void onDateClick(View v) {
             onTrainingListener.onDateClick(getAbsoluteAdapterPosition());
         }
 
+        public void onOptionsClick(View v) {
+            onTrainingListener.onOptionsClick(getAbsoluteAdapterPosition());
+        }
+
         @Override
         public void onClick(View v) {
             onTrainingListener.onTrainingClick(getAbsoluteAdapterPosition());
         }
-
 
         @Override
         public boolean onLongClick(View v) {
@@ -121,5 +112,6 @@ public class TrainingsAdapter extends RecyclerView.Adapter<TrainingsAdapter.Trai
         void onTrainingClick(int position);
         boolean onTrainingLongClick(int position);
         void onDateClick(int position);
+        void onOptionsClick(int position);
     }
 }

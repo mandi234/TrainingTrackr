@@ -24,8 +24,8 @@ public class TrainingRepository {
 
     }
 
-    public void addTraining(Training training) {
-        trainingDao.addTraining(training);
+    public long addTraining(Training training) {
+        return trainingDao.addTraining(training);
     }
 
     public LiveData<List<Training>> getTrainings() {

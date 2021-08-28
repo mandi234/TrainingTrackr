@@ -17,8 +17,8 @@ public class AppViewModel extends ViewModel {
         this.trainingRepository = trainingRepository;
     }
 
-   public void addTraining(Training training) {
-        trainingRepository.addTraining(training);
+   public long addTraining(Training training) {
+        return trainingRepository.addTraining(training);
    }
 
    public void addExercise(Exercise exercise) {

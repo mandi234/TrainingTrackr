@@ -33,7 +33,9 @@ import com.example.trainingtrackr.utils.InjectorUtils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.sql.SQLOutput;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 import java.util.Calendar;
@@ -128,6 +130,7 @@ public class TrainingsActivity extends AppCompatActivity implements TrainingsAda
                 Training training = trainingsList.get(position);
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                 LocalDateTime ldt = LocalDateTime.ofInstant(newDate.toInstant(), newDate.getTimeZone().toZoneId());
+                training.setTimestamp(ldt.toInstant(OffsetDateTime.now().getOffset()).toEpochMilli());
                 training.setDate(dtf.format(ldt));
                 appViewModel.updateTraining(training);
             }
@@ -177,7 +180,8 @@ public class TrainingsActivity extends AppCompatActivity implements TrainingsAda
     @Override
     protected void onStop() {
         appViewModel.updateTrainings(trainingsList);
-        liveCopiedTrainingExercises.removeObservers(this);
+        if(liveCopiedTrainingExercises != null)
+            liveCopiedTrainingExercises.removeObservers(this);
         System.out.println("piczka");
         super.onStop();
     }

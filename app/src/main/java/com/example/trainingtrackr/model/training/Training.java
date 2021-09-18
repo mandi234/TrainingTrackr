@@ -12,9 +12,13 @@ import androidx.room.Relation;
 import com.example.trainingtrackr.model.exercise.Exercise;
 import com.example.trainingtrackr.ui.trainings.TrainingsActivity;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -28,6 +32,9 @@ public class Training {
     @ColumnInfo(name ="date")
     private String date;
 
+    @ColumnInfo(name = "timestamp")
+    private long timestamp;
+
     @ColumnInfo(name ="name")
     private String name;
 
@@ -36,6 +43,7 @@ public class Training {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         LocalDateTime now = LocalDateTime.now();
         this.date = dtf.format(now);
+        this.timestamp = now.toInstant(OffsetDateTime.now().getOffset()).toEpochMilli();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -43,13 +51,6 @@ public class Training {
         this();
         this.name = name;
     }
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public Training(String date, String name) {
-        this(name);
-        this.date = date;
-    }
-
 
     public long getId() {
         return id;
@@ -76,5 +77,13 @@ public class Training {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
     }
 }

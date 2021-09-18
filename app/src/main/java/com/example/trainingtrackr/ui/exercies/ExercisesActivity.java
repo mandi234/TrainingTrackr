@@ -14,6 +14,8 @@ import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
 import com.example.trainingtrackr.R;
@@ -38,6 +40,7 @@ public class ExercisesActivity extends AppCompatActivity implements ExercisesAda
     private ExercisesAdapter exercisesAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private AppViewModel appViewModel;
+    private AutoCompleteTextView exerciseNameAutoCompTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,8 @@ public class ExercisesActivity extends AppCompatActivity implements ExercisesAda
         recyclerView = findViewById(R.id.training_recycler_view);
         addExerciseFab = findViewById(R.id.add_exercise_fab);
         exercisesList = new ArrayList<>();
+
+
 
         long trainingId = getIntent().getLongExtra("trainingId", 0);
         AppViewModelFactory factory = InjectorUtils.provideTrainingsViewModelFactory();

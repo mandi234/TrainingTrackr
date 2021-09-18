@@ -23,7 +23,7 @@ public class TrainingTrackr extends Application {
         super.onCreate();
         int t = InputParser.parseInt("         ");
         System.out.println(t);
-        db = Room.databaseBuilder(this, TrackrRoomDatabase.class, "training-trackr-db").allowMainThreadQueries().build();
+        db = Room.databaseBuilder(this, TrackrRoomDatabase.class, "training-trackr-db2").allowMainThreadQueries().build();
     }
 
     public static Context getAppContext() {

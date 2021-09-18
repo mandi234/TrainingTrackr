@@ -21,7 +21,7 @@ public interface TrainingDao {
     long addTraining(Training training);
 
 
-    @Query("Select * from training order by date desc")
+    @Query("Select * from training order by timestamp desc")
     LiveData<List<Training>> getTrainings();
 
     @Insert

@@ -5,6 +5,8 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -53,6 +55,10 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.Exce
         holder.repsEditText.setText(Integer.toString(exercise.getReps()));
         holder.setsEditText.setText(Integer.toString(exercise.getSets()));
         holder.weightEditText.setText(Integer.toString(exercise.getWeight()));
+
+        String[] exercisesNames = holder.itemView.getResources().getStringArray(R.array.exercises);
+        ArrayAdapter<String> exercisesNamesAdapter = new ArrayAdapter<String>(holder.itemView.getContext(), R.layout.support_simple_spinner_dropdown_item, exercisesNames);
+        holder.exerciseNameAutoCompTextView.setAdapter(exercisesNamesAdapter);
 
 
     }
@@ -108,7 +114,7 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.Exce
         }
 
         private EditText weightEditText;
-        private Spinner nameSpinner;
+        private AutoCompleteTextView exerciseNameAutoCompTextView;
 
         public ExcerciseViewHolder(@NonNull @NotNull View itemView, OnExerciseListener onExerciseListener) {
             super(itemView);
@@ -116,7 +122,7 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.Exce
             repsEditText = itemView.findViewById(R.id.reps_etn);
             setsEditText = itemView.findViewById(R.id.sets_etn);
             weightEditText = itemView.findViewById(R.id.weight_etn);
-            nameSpinner = itemView.findViewById(R.id.exercise_spinner);
+            exerciseNameAutoCompTextView = itemView.findViewById(R.id.exerciseName_actv);
 
             this.onExerciseListener = onExerciseListener;
             itemView.setOnLongClickListener(this::onLongClick);

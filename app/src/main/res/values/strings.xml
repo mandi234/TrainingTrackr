@@ -1,9 +1,11 @@
 <resources>
     <string name="app_name">TrainingTrackr</string>
     
-    <string-array name="excercises">
+    <string-array name="exercises">
         <item>Deadlift</item>
         <item>Squat</item>
         <item>Bench Press</item>
+        <item>OHP</item>
+        <item>Farmers Walk</item>
     </string-array>
 </resources>

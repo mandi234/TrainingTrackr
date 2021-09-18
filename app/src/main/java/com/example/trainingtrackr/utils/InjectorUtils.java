@@ -1,9 +1,8 @@
 package com.example.trainingtrackr.utils;
 
-import com.example.trainingtrackr.model.FakeDatabase;
-import com.example.trainingtrackr.model.TrainingRepository;
-import com.example.trainingtrackr.ui.trainings.TrainingsViewModel;
-import com.example.trainingtrackr.ui.trainings.TrainingsViewModelFactory;
+import com.example.trainingtrackr.app.TrainingTrackr;
+import com.example.trainingtrackr.model.training.TrainingRepository;
+import com.example.trainingtrackr.ui.AppViewModelFactory;
 
 public class InjectorUtils {
 
@@ -18,10 +17,12 @@ public class InjectorUtils {
         return instance;
     }
 
-    public static TrainingsViewModelFactory provideTrainingsViewModelFactory() {
+    public static AppViewModelFactory provideTrainingsViewModelFactory() {
 
-        TrainingRepository trainingRepository = TrainingRepository.getInstance(FakeDatabase.getInstance().getTrainingDao());
-        return new TrainingsViewModelFactory(trainingRepository);
+
+
+        TrainingRepository trainingRepository = TrainingRepository.getInstance(TrainingTrackr.getDb().trainingDao());
+        return new AppViewModelFactory(trainingRepository);
 
     }
 }

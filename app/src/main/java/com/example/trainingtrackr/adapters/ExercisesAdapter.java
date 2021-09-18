@@ -32,7 +32,7 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.Exce
     }
 
     private List<Exercise> exercisesList;
-    private OnExerciseListener onExerciseListener;
+    private final OnExerciseListener onExerciseListener;
 
 
     public ExercisesAdapter(List<Exercise> exercisesList, OnExerciseListener onExerciseListener) {
@@ -59,6 +59,7 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.Exce
         String[] exercisesNames = holder.itemView.getResources().getStringArray(R.array.exercises);
         ArrayAdapter<String> exercisesNamesAdapter = new ArrayAdapter<String>(holder.itemView.getContext(), R.layout.support_simple_spinner_dropdown_item, exercisesNames);
         holder.exerciseNameAutoCompTextView.setAdapter(exercisesNamesAdapter);
+        holder.exerciseNameAutoCompTextView.setText(exercise.getName());
 
 
     }
@@ -68,12 +69,16 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.Exce
         return exercisesList.size();
     }
 
-    public class ExcerciseViewHolder extends RecyclerView.ViewHolder
+    public static class ExcerciseViewHolder extends RecyclerView.ViewHolder
         implements View.OnLongClickListener {
 
         private OnExerciseListener onExerciseListener;
         private EditText repsEditText;
         private EditText setsEditText;
+        private EditText weightEditText;
+
+
+        private AutoCompleteTextView exerciseNameAutoCompTextView;
 
         public Exercise getExercise() {
             return exercise;
@@ -113,8 +118,14 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.Exce
             this.weightEditText = weightEditText;
         }
 
-        private EditText weightEditText;
-        private AutoCompleteTextView exerciseNameAutoCompTextView;
+        public AutoCompleteTextView getExerciseNameAutoCompTextView() {
+            return exerciseNameAutoCompTextView;
+        }
+
+        public void setExerciseNameAutoCompTextView(AutoCompleteTextView exerciseNameAutoCompTextView) {
+            this.exerciseNameAutoCompTextView = exerciseNameAutoCompTextView;
+        }
+
 
         public ExcerciseViewHolder(@NonNull @NotNull View itemView, OnExerciseListener onExerciseListener) {
             super(itemView);

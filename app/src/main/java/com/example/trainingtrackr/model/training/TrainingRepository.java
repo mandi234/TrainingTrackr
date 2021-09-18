@@ -10,7 +10,7 @@ import java.util.List;
 
 public class TrainingRepository {
 
-    private TrainingDao trainingDao;
+    private final TrainingDao trainingDao;
     private volatile static TrainingRepository instance;
 
     private TrainingRepository(TrainingDao trainingDao) {

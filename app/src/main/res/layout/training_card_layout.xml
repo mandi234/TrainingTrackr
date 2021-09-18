@@ -9,6 +9,18 @@
     android:rotationX="0"
     android:rotationY="0">
 
+    <AutoCompleteTextView
+        android:id="@+id/trainingName_actv"
+        android:layout_width="111dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="12dp"
+        android:hint="Write a name"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv2" />
+
     <TextView
         android:id="@+id/tv1"
         android:layout_width="wrap_content"
@@ -44,15 +56,6 @@
         app:layout_constraintTop_toTopOf="@+id/tv1" />
 
     <TextView
-        android:id="@+id/name_tv"
-        android:layout_width="64dp"
-        android:layout_height="26dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        app:layout_constraintStart_toEndOf="@+id/tv2"
-        app:layout_constraintTop_toTopOf="@+id/tv2" />
-
-    <TextView
         android:id="@+id/training_options_btn"
         android:layout_width="52dp"
         android:layout_height="66dp"
@@ -60,14 +63,12 @@
         android:layout_alignParentRight="true"
         android:gravity="center_horizontal"
         android:text="&#8942;"
-        android:textStyle="bold"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="34sp"
+        android:textStyle="bold"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.827"
-        app:layout_constraintStart_toEndOf="@+id/name_tv"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.51" />
 

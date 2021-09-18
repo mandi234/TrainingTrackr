@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,9 +24,9 @@ import java.util.List;
 
 public class TrainingsAdapter extends RecyclerView.Adapter<TrainingsAdapter.TrainingViewHolder> {
 
-    private Activity context;
-    private List<Training> trainingList;
-    private OnTrainingListener onTrainingListener;
+    private final Activity context;
+    private final List<Training> trainingList;
+    private final OnTrainingListener onTrainingListener;
 
 
     public TrainingsAdapter(Activity context, List<Training> trainingList, OnTrainingListener onTrainingListener) {
@@ -51,39 +52,45 @@ public class TrainingsAdapter extends RecyclerView.Adapter<TrainingsAdapter.Trai
         holder.dateTextView.setText(training.getDate());
     }
 
-    private void showTrainingMenuPopup(@NotNull TrainingsAdapter.TrainingViewHolder holder, Context ctx) {
-
-    }
-
     @Override
     public int getItemCount() {
         if(trainingList == null || trainingList.isEmpty()) return 0;
         return trainingList.size();
     }
 
-    public class TrainingViewHolder extends RecyclerView.ViewHolder
-            implements View.OnClickListener, View.OnLongClickListener {
+    public static class TrainingViewHolder extends RecyclerView.ViewHolder
+            implements View.OnClickListener {
 
-        private TextView dateTextView;
-        private TextView nameTextView;
+        private final TextView dateTextView;
+        private final AutoCompleteTextView nameTextView;
+        private final TextView buttonViewOptions;
+        private final OnTrainingListener onTrainingListener;
+
+        public TextView getDateTextView() {
+            return dateTextView;
+        }
+
+        public AutoCompleteTextView getNameTextView() {
+            return nameTextView;
+        }
+
+        public OnTrainingListener getOnTrainingListener() {
+            return onTrainingListener;
+        }
 
         public TextView getButtonViewOptions() {
             return buttonViewOptions;
         }
 
-        private TextView buttonViewOptions;
-        private OnTrainingListener onTrainingListener;
-
         public TrainingViewHolder(@NonNull @NotNull View itemView, OnTrainingListener onTrainingListener) {
             super(itemView);
 
             dateTextView = itemView.findViewById(R.id.date_tv);
-            nameTextView = itemView.findViewById(R.id.name_tv);
+            nameTextView = itemView.findViewById(R.id.trainingName_actv);
             buttonViewOptions = itemView.findViewById(R.id.training_options_btn);
 
             this.onTrainingListener = onTrainingListener;
             itemView.setOnClickListener(this);
-            itemView.setOnLongClickListener(this::onLongClick);
             dateTextView.setOnClickListener(this::onDateClick);
             buttonViewOptions.setOnClickListener(this::onOptionsClick);
         }
@@ -101,16 +108,10 @@ public class TrainingsAdapter extends RecyclerView.Adapter<TrainingsAdapter.Trai
             onTrainingListener.onTrainingClick(getAbsoluteAdapterPosition());
         }
 
-        @Override
-        public boolean onLongClick(View v) {
-            onTrainingListener.onTrainingLongClick(getAbsoluteAdapterPosition());
-            return true;
-        }
     }
 
     public interface OnTrainingListener {
         void onTrainingClick(int position);
-        boolean onTrainingLongClick(int position);
         void onDateClick(int position);
         void onOptionsClick(int position);
     }

@@ -40,7 +40,6 @@ public class ExercisesActivity extends AppCompatActivity implements ExercisesAda
     private ExercisesAdapter exercisesAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private AppViewModel appViewModel;
-    private AutoCompleteTextView exerciseNameAutoCompTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,13 +55,9 @@ public class ExercisesActivity extends AppCompatActivity implements ExercisesAda
         AppViewModelFactory factory = InjectorUtils.provideTrainingsViewModelFactory();
         appViewModel = new ViewModelProvider(this, factory).get(AppViewModel.class);
 
-        appViewModel.getExercisesByTrainingId(trainingId).observe(this, new Observer<List<Exercise>>() {
-
-            @Override
-            public void onChanged(List<Exercise> exercises) {
-                exercisesList = exercises;
-                initAdapter(ExercisesActivity.this, exercises);
-            }
+        appViewModel.getExercisesByTrainingId(trainingId).observe(this, exercises -> {
+            exercisesList = exercises;
+            initAdapter(ExercisesActivity.this, exercises);
         });
 
 
@@ -80,8 +75,8 @@ public class ExercisesActivity extends AppCompatActivity implements ExercisesAda
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private void initAdapter(Activity context, List<Exercise> exercises) {
-        exercisesAdapter = new ExercisesAdapter(exercises, this::onExerciseLongClick);
-        layoutManager =  new LinearLayoutManager(getApplicationContext());
+        exercisesAdapter = new ExercisesAdapter(exercises, this);
+        layoutManager =  new LinearLayoutManager(context);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(exercisesAdapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -109,6 +104,7 @@ public class ExercisesActivity extends AppCompatActivity implements ExercisesAda
             exercisesList.get(i).setReps(InputParser.parseInt(holder.getRepsEditText().getText().toString()));
             exercisesList.get(i).setSets(InputParser.parseInt(holder.getSetsEditText().getText().toString()));
             exercisesList.get(i).setWeight(InputParser.parseInt(holder.getWeightEditText().getText().toString()));
+            exercisesList.get(i).setName(holder.getExerciseNameAutoCompTextView().getText().toString());
         }
         appViewModel.updateExercises(exercisesList);
     }

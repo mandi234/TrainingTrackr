@@ -45,48 +45,33 @@ public class TrainingsActivity extends AppCompatActivity implements TrainingsAda
 
     public FloatingActionButton fab;
     private RecyclerView recyclerView;
-
-    private static int fabClicks = 0;
     private List<Training> trainingsList;
     private AppViewModel appViewModel;
-
     private LiveData<List<Exercise>> liveCopiedTrainingExercises;
 
-
-
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trainings);
         recyclerView = findViewById(R.id.main_recycler_view);
         fab = findViewById(R.id.floatingActionButton);
-        Calendar newCalendar = Calendar.getInstance();
 
         initUI();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void initUI() {
         AppViewModelFactory factory = InjectorUtils.provideTrainingsViewModelFactory();
         appViewModel = new ViewModelProvider(this, factory).get(AppViewModel.class);
 
 
-        appViewModel.getTrainings().observe(this, new Observer<List<Training>>() {
-            @Override
-            public void onChanged(List<Training> trainings) {
-                trainingsList = trainings;
-                initAdapter(TrainingsActivity.this, trainings);
-            }
+        appViewModel.getTrainings().observe(this, trainings -> {
+            trainingsList = trainings;
+            initAdapter(TrainingsActivity.this, trainings);
         });
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
-            @Override
-            public void onClick(View v) {
-
-                appViewModel.addTraining(new Training());
-
-            }
-        });
+        fab.setOnClickListener(v -> appViewModel.addTraining(new Training()));
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
         dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.exercise_item_divider));
@@ -111,12 +96,6 @@ public class TrainingsActivity extends AppCompatActivity implements TrainingsAda
         Intent intent = new Intent(TrainingsActivity.this, ExercisesActivity.class);
         intent.putExtra("trainingId", trainingsList.get(position).getId());
         startActivity(intent);
-    }
-
-    @Override
-    public boolean onTrainingLongClick(int position) {
-        //appViewModel.deleteTraining(trainingsList.get(position));
-        return true;
     }
 
     @Override
@@ -157,14 +136,12 @@ public class TrainingsActivity extends AppCompatActivity implements TrainingsAda
                         public void onChanged(List<Exercise> exercises) {
                             if(!alreadyChanged) {
                                 for(Exercise exercise : exercises) {
-                                    System.out.println("onChanged live nie rowna sie exercises");
                                     appViewModel.addExercise(new Exercise(exercise, trainingId));
                                 }
                                 alreadyChanged = true;
                             }
                         }
                     });
-                    //liveCopiedTrainingExercises.removeObservers(this);
                     break;
                 case R.id.erase_training_menu_item:
                     appViewModel.deleteTraining(trainingsList.get(position));
@@ -173,16 +150,18 @@ public class TrainingsActivity extends AppCompatActivity implements TrainingsAda
             }
             return false;
         });
-        //displaying the popup
         popup.show();
     }
 
     @Override
     protected void onStop() {
+        for(int i=0; i<trainingsList.size(); i++) {
+            TrainingsAdapter.TrainingViewHolder holder = (TrainingsAdapter.TrainingViewHolder) recyclerView.findViewHolderForLayoutPosition(i);
+            trainingsList.get(i).setName(holder.getNameTextView().getText().toString());
+        }
         appViewModel.updateTrainings(trainingsList);
         if(liveCopiedTrainingExercises != null)
             liveCopiedTrainingExercises.removeObservers(this);
-        System.out.println("piczka");
         super.onStop();
     }
 

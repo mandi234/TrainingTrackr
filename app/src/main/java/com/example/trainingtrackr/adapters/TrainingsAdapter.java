@@ -62,7 +62,7 @@ public class TrainingsAdapter extends RecyclerView.Adapter<TrainingsAdapter.Trai
     }
 
     public class TrainingViewHolder extends RecyclerView.ViewHolder
-            implements View.OnClickListener, View.OnLongClickListener {
+            implements View.OnClickListener {
 
         private TextView dateTextView;
         private TextView nameTextView;
@@ -83,7 +83,6 @@ public class TrainingsAdapter extends RecyclerView.Adapter<TrainingsAdapter.Trai
 
             this.onTrainingListener = onTrainingListener;
             itemView.setOnClickListener(this);
-            itemView.setOnLongClickListener(this::onLongClick);
             dateTextView.setOnClickListener(this::onDateClick);
             buttonViewOptions.setOnClickListener(this::onOptionsClick);
         }
@@ -101,16 +100,10 @@ public class TrainingsAdapter extends RecyclerView.Adapter<TrainingsAdapter.Trai
             onTrainingListener.onTrainingClick(getAbsoluteAdapterPosition());
         }
 
-        @Override
-        public boolean onLongClick(View v) {
-            onTrainingListener.onTrainingLongClick(getAbsoluteAdapterPosition());
-            return true;
-        }
     }
 
     public interface OnTrainingListener {
         void onTrainingClick(int position);
-        boolean onTrainingLongClick(int position);
         void onDateClick(int position);
         void onOptionsClick(int position);
     }

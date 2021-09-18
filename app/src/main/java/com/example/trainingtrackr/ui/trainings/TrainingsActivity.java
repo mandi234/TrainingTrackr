@@ -54,6 +54,7 @@ public class TrainingsActivity extends AppCompatActivity implements TrainingsAda
 
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,28 +66,19 @@ public class TrainingsActivity extends AppCompatActivity implements TrainingsAda
         initUI();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void initUI() {
         AppViewModelFactory factory = InjectorUtils.provideTrainingsViewModelFactory();
         appViewModel = new ViewModelProvider(this, factory).get(AppViewModel.class);
 
 
-        appViewModel.getTrainings().observe(this, new Observer<List<Training>>() {
-            @Override
-            public void onChanged(List<Training> trainings) {
-                trainingsList = trainings;
-                initAdapter(TrainingsActivity.this, trainings);
-            }
+        appViewModel.getTrainings().observe(this, trainings -> {
+            trainingsList = trainings;
+            initAdapter(TrainingsActivity.this, trainings);
         });
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
-            @Override
-            public void onClick(View v) {
 
-                appViewModel.addTraining(new Training());
-
-            }
-        });
+        fab.setOnClickListener(v -> appViewModel.addTraining(new Training()));
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
         dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.exercise_item_divider));
@@ -105,18 +97,11 @@ public class TrainingsActivity extends AppCompatActivity implements TrainingsAda
 
     }
 
-
     @Override
     public void onTrainingClick(int position) {
         Intent intent = new Intent(TrainingsActivity.this, ExercisesActivity.class);
         intent.putExtra("trainingId", trainingsList.get(position).getId());
         startActivity(intent);
-    }
-
-    @Override
-    public boolean onTrainingLongClick(int position) {
-        //appViewModel.deleteTraining(trainingsList.get(position));
-        return true;
     }
 
     @Override
@@ -164,7 +149,6 @@ public class TrainingsActivity extends AppCompatActivity implements TrainingsAda
                             }
                         }
                     });
-                    //liveCopiedTrainingExercises.removeObservers(this);
                     break;
                 case R.id.erase_training_menu_item:
                     appViewModel.deleteTraining(trainingsList.get(position));
@@ -173,7 +157,6 @@ public class TrainingsActivity extends AppCompatActivity implements TrainingsAda
             }
             return false;
         });
-        //displaying the popup
         popup.show();
     }
 

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.trainingtrackr.R;
 import com.example.trainingtrackr.model.exercise.Exercise;
+import com.example.trainingtrackr.utils.InputParser;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -52,9 +53,9 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.Exce
     @Override
     public void onBindViewHolder(@NonNull @NotNull ExercisesAdapter.ExcerciseViewHolder holder, int position) {
         Exercise exercise = exercisesList.get(position);
-        holder.repsEditText.setText(Integer.toString(exercise.getReps()));
-        holder.setsEditText.setText(Integer.toString(exercise.getSets()));
-        holder.weightEditText.setText(Integer.toString(exercise.getWeight()));
+        holder.repsEditText.setText(InputParser.toExerciseFieldsText(exercise.getReps()));
+        holder.setsEditText.setText(InputParser.toExerciseFieldsText(exercise.getSets()));
+        holder.weightEditText.setText(InputParser.toExerciseFieldsText(exercise.getWeight()));
 
         String[] exercisesNames = holder.itemView.getResources().getStringArray(R.array.exercises);
         ArrayAdapter<String> exercisesNamesAdapter = new ArrayAdapter<String>(holder.itemView.getContext(), R.layout.support_simple_spinner_dropdown_item, exercisesNames);

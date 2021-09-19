@@ -9,4 +9,12 @@ public class InputParser {
 
         return Integer.parseInt(s.trim());
     }
+
+    public static String toExerciseFieldsText(int value) {
+        if (value == 0) {
+            return "";
+        }
+
+        return Integer.toString(value);
+    }
 }

@@ -13,6 +13,7 @@ public class FakeTrainingDao implements TrainingDao {
 
     private List<Training> trainingList = new ArrayList<>();
     private MutableLiveData<List<Training>> trainings = new MutableLiveData<>();
+
     {
         trainings.setValue(trainingList);
     }

@@ -17,41 +17,43 @@ public class AppViewModel extends ViewModel {
         this.trainingRepository = trainingRepository;
     }
 
-   public long addTraining(Training training) {
+    public long addTraining(Training training) {
         return trainingRepository.addTraining(training);
-   }
+    }
 
-   public void addExercise(Exercise exercise) {
+    public void addExercise(Exercise exercise) {
         trainingRepository.addExercise(exercise);
-   }
+    }
 
-   public LiveData<List<Training>> getTrainings() {
+    public LiveData<List<Training>> getTrainings() {
         return trainingRepository.getTrainings();
-   }
+    }
 
-   public LiveData<List<Exercise>> getExercisesByTrainingId(long trainingId) {return trainingRepository.getExercisesByTrainingId(trainingId);}
+    public LiveData<List<Exercise>> getExercisesByTrainingId(long trainingId) {
+        return trainingRepository.getExercisesByTrainingId(trainingId);
+    }
 
-   public void updateTraining(Training training) {
+    public void updateTraining(Training training) {
         trainingRepository.updateTraining(training);
-   }
+    }
 
-   public void updateExercise(Exercise exercise) {
+    public void updateExercise(Exercise exercise) {
         trainingRepository.updateExercise(exercise);
-   }
+    }
 
-   public int updateExercises(List<Exercise> exercises) {
+    public int updateExercises(List<Exercise> exercises) {
         return trainingRepository.updateExercises(exercises);
-   }
+    }
 
     public int updateTrainings(List<Training> trainings) {
         return trainingRepository.updateTrainings(trainings);
     }
 
-   public void deleteTraining(Training training) {
+    public void deleteTraining(Training training) {
         trainingRepository.deleteTraining(training);
-   }
+    }
 
-   public void deleteExercise(Exercise exercise) {
+    public void deleteExercise(Exercise exercise) {
         trainingRepository.deleteExercise(exercise);
-   }
+    }
 }

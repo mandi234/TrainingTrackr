@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.trainingtrackr.model.training.TrainingRepository;
-import com.example.trainingtrackr.ui.AppViewModel;
 
 import org.jetbrains.annotations.NotNull;
 

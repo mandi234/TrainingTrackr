@@ -1,5 +1,13 @@
 package com.example.trainingtrackr.ui.trainings;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.content.Intent;
+import android.os.Build;
+import android.os.Bundle;
+import android.widget.DatePicker;
+
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
@@ -11,17 +19,6 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.DatePickerDialog;
-import android.content.Intent;
-import android.os.Build;
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.DatePicker;
-import android.widget.Toast;
-
 import com.example.trainingtrackr.R;
 import com.example.trainingtrackr.adapters.TrainingsAdapter;
 import com.example.trainingtrackr.model.exercise.Exercise;
@@ -32,12 +29,9 @@ import com.example.trainingtrackr.ui.exercies.ExercisesActivity;
 import com.example.trainingtrackr.utils.InjectorUtils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.sql.SQLOutput;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalAccessor;
 import java.util.Calendar;
 import java.util.List;
 
@@ -80,12 +74,11 @@ public class TrainingsActivity extends AppCompatActivity implements TrainingsAda
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private void initAdapter(Activity context, List<Training> trainings) {
-        RecyclerView.LayoutManager layoutManager =  new LinearLayoutManager(getApplicationContext());
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         TrainingsAdapter trainingsAdapter = new TrainingsAdapter(context, trainings, this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(trainingsAdapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-
 
 
     }
@@ -101,7 +94,7 @@ public class TrainingsActivity extends AppCompatActivity implements TrainingsAda
     @Override
     public void onDateClick(int position) {
         final Calendar newCalendar = Calendar.getInstance();
-        final DatePickerDialog  StartTime = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+        final DatePickerDialog StartTime = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 Calendar newDate = Calendar.getInstance();
@@ -132,10 +125,11 @@ public class TrainingsActivity extends AppCompatActivity implements TrainingsAda
                     long trainingId = appViewModel.addTraining(new Training());
                     liveCopiedTrainingExercises.observe(this, new Observer<List<Exercise>>() {
                         boolean alreadyChanged = false;
+
                         @Override
                         public void onChanged(List<Exercise> exercises) {
-                            if(!alreadyChanged) {
-                                for(Exercise exercise : exercises) {
+                            if (!alreadyChanged) {
+                                for (Exercise exercise : exercises) {
                                     appViewModel.addExercise(new Exercise(exercise, trainingId));
                                 }
                                 alreadyChanged = true;
@@ -155,12 +149,12 @@ public class TrainingsActivity extends AppCompatActivity implements TrainingsAda
 
     @Override
     protected void onStop() {
-        for(int i=0; i<trainingsList.size(); i++) {
+        for (int i = 0; i < trainingsList.size(); i++) {
             TrainingsAdapter.TrainingViewHolder holder = (TrainingsAdapter.TrainingViewHolder) recyclerView.findViewHolderForLayoutPosition(i);
             trainingsList.get(i).setName(holder.getNameTextView().getText().toString());
         }
         appViewModel.updateTrainings(trainingsList);
-        if(liveCopiedTrainingExercises != null)
+        if (liveCopiedTrainingExercises != null)
             liveCopiedTrainingExercises.removeObservers(this);
         super.onStop();
     }

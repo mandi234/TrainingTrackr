@@ -7,14 +7,14 @@ public class FakeDatabase {
 
     private static volatile FakeDatabase instance = null;
 
-    private TrainingDao trainingDao = new FakeTrainingDao() ;
+    private TrainingDao trainingDao = new FakeTrainingDao();
 
     private FakeDatabase() {
 
     }
 
     public static synchronized FakeDatabase getInstance() {
-        if(instance == null) instance = new FakeDatabase();
+        if (instance == null) instance = new FakeDatabase();
 
         return instance;
     }

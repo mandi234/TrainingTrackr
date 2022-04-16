@@ -11,12 +11,15 @@ import com.example.trainingtrackr.utils.InputParser;
 public class TrainingTrackr extends Application {
 
     private static Context context;
+    private static TrackrRoomDatabase db;
 
     public static TrackrRoomDatabase getDb() {
         return db;
     }
 
-    private static TrackrRoomDatabase db;
+    public static Context getAppContext() {
+        return TrainingTrackr.context;
+    }
 
     @Override
     public void onCreate() {
@@ -24,9 +27,5 @@ public class TrainingTrackr extends Application {
         int t = InputParser.parseInt("         ");
         System.out.println(t);
         db = Room.databaseBuilder(this, TrackrRoomDatabase.class, "training-trackr-db2").allowMainThreadQueries().build();
-    }
-
-    public static Context getAppContext() {
-        return TrainingTrackr.context;
     }
 }

@@ -1,14 +1,11 @@
 package com.example.trainingtrackr.adapters;
 
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
-import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,6 +21,14 @@ import java.util.List;
 public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.ExcerciseViewHolder> {
 
 
+    private final OnExerciseListener onExerciseListener;
+    private List<Exercise> exercisesList;
+
+    public ExercisesAdapter(List<Exercise> exercisesList, OnExerciseListener onExerciseListener) {
+        this.onExerciseListener = onExerciseListener;
+        this.exercisesList = exercisesList;
+    }
+
     public List<Exercise> getExercisesList() {
         return exercisesList;
     }
@@ -31,16 +36,6 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.Exce
     public void setExercisesList(List<Exercise> exercisesList) {
         this.exercisesList = exercisesList;
     }
-
-    private List<Exercise> exercisesList;
-    private final OnExerciseListener onExerciseListener;
-
-
-    public ExercisesAdapter(List<Exercise> exercisesList, OnExerciseListener onExerciseListener) {
-        this.onExerciseListener = onExerciseListener;
-        this.exercisesList = exercisesList;
-    }
-
 
     @NonNull
     @NotNull
@@ -70,8 +65,12 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.Exce
         return exercisesList.size();
     }
 
+    public interface OnExerciseListener {
+        boolean onExerciseLongClick(int position);
+    }
+
     public static class ExcerciseViewHolder extends RecyclerView.ViewHolder
-        implements View.OnLongClickListener {
+            implements View.OnLongClickListener {
 
         private OnExerciseListener onExerciseListener;
         private EditText repsEditText;
@@ -80,12 +79,23 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.Exce
 
 
         private AutoCompleteTextView exerciseNameAutoCompTextView;
+        private Exercise exercise;
+
+        public ExcerciseViewHolder(@NonNull @NotNull View itemView, OnExerciseListener onExerciseListener) {
+            super(itemView);
+
+            repsEditText = itemView.findViewById(R.id.reps_etn);
+            setsEditText = itemView.findViewById(R.id.sets_etn);
+            weightEditText = itemView.findViewById(R.id.weight_etn);
+            exerciseNameAutoCompTextView = itemView.findViewById(R.id.exerciseName_actv);
+
+            this.onExerciseListener = onExerciseListener;
+            itemView.setOnLongClickListener(this::onLongClick);
+        }
 
         public Exercise getExercise() {
             return exercise;
         }
-
-        private Exercise exercise;
 
         public OnExerciseListener getOnExerciseListener() {
             return onExerciseListener;
@@ -127,19 +137,6 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.Exce
             this.exerciseNameAutoCompTextView = exerciseNameAutoCompTextView;
         }
 
-
-        public ExcerciseViewHolder(@NonNull @NotNull View itemView, OnExerciseListener onExerciseListener) {
-            super(itemView);
-
-            repsEditText = itemView.findViewById(R.id.reps_etn);
-            setsEditText = itemView.findViewById(R.id.sets_etn);
-            weightEditText = itemView.findViewById(R.id.weight_etn);
-            exerciseNameAutoCompTextView = itemView.findViewById(R.id.exerciseName_actv);
-
-            this.onExerciseListener = onExerciseListener;
-            itemView.setOnLongClickListener(this::onLongClick);
-        }
-
         @Override
         public boolean onLongClick(View v) {
             onExerciseListener.onExerciseLongClick(getAbsoluteAdapterPosition());
@@ -147,10 +144,6 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.Exce
         }
 
 
-    }
-
-    public interface OnExerciseListener {
-        boolean onExerciseLongClick(int position);
     }
 }
 

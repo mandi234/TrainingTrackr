@@ -1,17 +1,13 @@
 package com.example.trainingtrackr.adapters;
 
 import android.app.Activity;
-import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.trainingtrackr.R;
@@ -54,8 +50,16 @@ public class TrainingsAdapter extends RecyclerView.Adapter<TrainingsAdapter.Trai
 
     @Override
     public int getItemCount() {
-        if(trainingList == null || trainingList.isEmpty()) return 0;
+        if (trainingList == null || trainingList.isEmpty()) return 0;
         return trainingList.size();
+    }
+
+    public interface OnTrainingListener {
+        void onTrainingClick(int position);
+
+        void onDateClick(int position);
+
+        void onOptionsClick(int position);
     }
 
     public static class TrainingViewHolder extends RecyclerView.ViewHolder
@@ -65,6 +69,19 @@ public class TrainingsAdapter extends RecyclerView.Adapter<TrainingsAdapter.Trai
         private final AutoCompleteTextView nameTextView;
         private final TextView buttonViewOptions;
         private final OnTrainingListener onTrainingListener;
+
+        public TrainingViewHolder(@NonNull @NotNull View itemView, OnTrainingListener onTrainingListener) {
+            super(itemView);
+
+            dateTextView = itemView.findViewById(R.id.date_tv);
+            nameTextView = itemView.findViewById(R.id.trainingName_actv);
+            buttonViewOptions = itemView.findViewById(R.id.training_options_btn);
+
+            this.onTrainingListener = onTrainingListener;
+            itemView.setOnClickListener(this);
+            dateTextView.setOnClickListener(this::onDateClick);
+            buttonViewOptions.setOnClickListener(this::onOptionsClick);
+        }
 
         public TextView getDateTextView() {
             return dateTextView;
@@ -82,19 +99,6 @@ public class TrainingsAdapter extends RecyclerView.Adapter<TrainingsAdapter.Trai
             return buttonViewOptions;
         }
 
-        public TrainingViewHolder(@NonNull @NotNull View itemView, OnTrainingListener onTrainingListener) {
-            super(itemView);
-
-            dateTextView = itemView.findViewById(R.id.date_tv);
-            nameTextView = itemView.findViewById(R.id.trainingName_actv);
-            buttonViewOptions = itemView.findViewById(R.id.training_options_btn);
-
-            this.onTrainingListener = onTrainingListener;
-            itemView.setOnClickListener(this);
-            dateTextView.setOnClickListener(this::onDateClick);
-            buttonViewOptions.setOnClickListener(this::onOptionsClick);
-        }
-
         public void onDateClick(View v) {
             onTrainingListener.onDateClick(getAbsoluteAdapterPosition());
         }
@@ -108,11 +112,5 @@ public class TrainingsAdapter extends RecyclerView.Adapter<TrainingsAdapter.Trai
             onTrainingListener.onTrainingClick(getAbsoluteAdapterPosition());
         }
 
-    }
-
-    public interface OnTrainingListener {
-        void onTrainingClick(int position);
-        void onDateClick(int position);
-        void onOptionsClick(int position);
     }
 }

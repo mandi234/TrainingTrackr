@@ -8,21 +8,20 @@ public class InjectorUtils {
 
     private static InjectorUtils instance = null;
 
-    private InjectorUtils(){
+    private InjectorUtils() {
 
-    }
-
-    public InjectorUtils getInstance() {
-        if(instance == null) instance = new InjectorUtils();
-        return instance;
     }
 
     public static AppViewModelFactory provideTrainingsViewModelFactory() {
 
 
-
         TrainingRepository trainingRepository = TrainingRepository.getInstance(TrainingTrackr.getDb().trainingDao());
         return new AppViewModelFactory(trainingRepository);
 
+    }
+
+    public InjectorUtils getInstance() {
+        if (instance == null) instance = new InjectorUtils();
+        return instance;
     }
 }

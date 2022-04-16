@@ -10,15 +10,15 @@ import java.util.List;
 
 public class TrainingRepository {
 
-    private final TrainingDao trainingDao;
     private volatile static TrainingRepository instance;
+    private final TrainingDao trainingDao;
 
     private TrainingRepository(TrainingDao trainingDao) {
         this.trainingDao = trainingDao;
     }
 
     public synchronized static TrainingRepository getInstance(TrainingDao trainingDao) {
-        if(instance == null) instance = new TrainingRepository(trainingDao);
+        if (instance == null) instance = new TrainingRepository(trainingDao);
 
         return instance;
 
@@ -29,7 +29,7 @@ public class TrainingRepository {
     }
 
     public LiveData<List<Training>> getTrainings() {
-       return trainingDao.getTrainings();
+        return trainingDao.getTrainings();
     }
 
     public void addExercise(Exercise exercise) {

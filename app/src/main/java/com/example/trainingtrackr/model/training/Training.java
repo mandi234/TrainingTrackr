@@ -2,26 +2,14 @@ package com.example.trainingtrackr.model.training;
 
 import android.os.Build;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-import androidx.room.Relation;
 
-import com.example.trainingtrackr.model.exercise.Exercise;
-import com.example.trainingtrackr.ui.trainings.TrainingsActivity;
-
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
 
 @Entity
 public class Training {
@@ -29,13 +17,13 @@ public class Training {
     @PrimaryKey(autoGenerate = true)
     private long id;
 
-    @ColumnInfo(name ="date")
+    @ColumnInfo(name = "date")
     private String date;
 
     @ColumnInfo(name = "timestamp")
     private long timestamp;
 
-    @ColumnInfo(name ="name")
+    @ColumnInfo(name = "name")
     private String name;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -59,8 +47,6 @@ public class Training {
     public void setId(long id) {
         this.id = id;
     }
-
-
 
 
     public String getDate() {

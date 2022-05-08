@@ -51,6 +51,7 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.Exce
         holder.repsEditText.setText(InputParser.toExerciseFieldsText(exercise.getReps()));
         holder.setsEditText.setText(InputParser.toExerciseFieldsText(exercise.getSets()));
         holder.weightEditText.setText(InputParser.toExerciseFieldsText(exercise.getWeight()));
+        holder.notesEditText.setText(exercise.getNote());
 
         String[] exercisesNames = holder.itemView.getResources().getStringArray(R.array.exercises);
         ArrayAdapter<String> exercisesNamesAdapter = new ArrayAdapter<String>(holder.itemView.getContext(), R.layout.support_simple_spinner_dropdown_item, exercisesNames);
@@ -76,7 +77,7 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.Exce
         private EditText repsEditText;
         private EditText setsEditText;
         private EditText weightEditText;
-
+        private EditText notesEditText;
 
         private AutoCompleteTextView exerciseNameAutoCompTextView;
         private Exercise exercise;
@@ -87,6 +88,7 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.Exce
             repsEditText = itemView.findViewById(R.id.reps_etn);
             setsEditText = itemView.findViewById(R.id.sets_etn);
             weightEditText = itemView.findViewById(R.id.weight_etn);
+            notesEditText = itemView.findViewById(R.id.notes_etn);
             exerciseNameAutoCompTextView = itemView.findViewById(R.id.exerciseName_actv);
 
             this.onExerciseListener = onExerciseListener;
@@ -127,6 +129,14 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.Exce
 
         public void setWeightEditText(EditText weightEditText) {
             this.weightEditText = weightEditText;
+        }
+
+        public EditText getNotesEditText() {
+            return notesEditText;
+        }
+
+        public void setNotesEditText(EditText notesEditText) {
+            this.notesEditText = notesEditText;
         }
 
         public AutoCompleteTextView getExerciseNameAutoCompTextView() {

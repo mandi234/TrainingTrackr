@@ -120,16 +120,37 @@
             android:id="@+id/exerciseName_actv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:hint="Name"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/tv1"
-            app:layout_constraintHorizontal_bias="0.551"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/tv1"
             app:layout_constraintTop_toBottomOf="@+id/tv1"
-            app:layout_constraintVertical_bias="1.0"></AutoCompleteTextView>
+            app:layout_constraintVertical_bias="0.089"></AutoCompleteTextView>
+
+        <EditText
+            android:id="@+id/notes_etn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginBottom="16dp"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="Notes here"
+            android:inputType="textMultiLine"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/reps_etn" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

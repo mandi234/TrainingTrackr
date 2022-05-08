@@ -99,6 +99,7 @@ public class ExercisesActivity extends AppCompatActivity implements ExercisesAda
             exercisesList.get(i).setSets(InputParser.parseInt(holder.getSetsEditText().getText().toString()));
             exercisesList.get(i).setWeight(InputParser.parseDouble(holder.getWeightEditText().getText().toString()));
             exercisesList.get(i).setName(holder.getExerciseNameAutoCompTextView().getText().toString());
+            exercisesList.get(i).setNote(holder.getNotesEditText().getText().toString());
         }
         appViewModel.updateExercises(exercisesList);
     }

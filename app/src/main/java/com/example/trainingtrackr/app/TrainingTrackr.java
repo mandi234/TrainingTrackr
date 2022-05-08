@@ -26,6 +26,9 @@ public class TrainingTrackr extends Application {
         super.onCreate();
         int t = InputParser.parseInt("         ");
         System.out.println(t);
-        db = Room.databaseBuilder(this, TrackrRoomDatabase.class, "training-trackr-db2").allowMainThreadQueries().build();
+        db = Room.databaseBuilder(this, TrackrRoomDatabase.class, "training-trackr-db2")
+                .allowMainThreadQueries()
+                .addMigrations(TrackrRoomDatabase.Migration_2_3)
+                .build();
     }
 }

@@ -97,7 +97,7 @@ public class ExercisesActivity extends AppCompatActivity implements ExercisesAda
             ExercisesAdapter.ExcerciseViewHolder holder = (ExercisesAdapter.ExcerciseViewHolder) recyclerView.findViewHolderForLayoutPosition(i);
             exercisesList.get(i).setReps(InputParser.parseInt(holder.getRepsEditText().getText().toString()));
             exercisesList.get(i).setSets(InputParser.parseInt(holder.getSetsEditText().getText().toString()));
-            exercisesList.get(i).setWeight(InputParser.parseInt(holder.getWeightEditText().getText().toString()));
+            exercisesList.get(i).setWeight(InputParser.parseDouble(holder.getWeightEditText().getText().toString()));
             exercisesList.get(i).setName(holder.getExerciseNameAutoCompTextView().getText().toString());
         }
         appViewModel.updateExercises(exercisesList);

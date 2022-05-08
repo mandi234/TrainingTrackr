@@ -22,7 +22,7 @@ public class Exercise {
 
     private int sets;
     private int reps;
-    private int weight;
+    private double weight;
     private String note;
 
     public Exercise() {
@@ -39,7 +39,7 @@ public class Exercise {
     }
 
 
-    public Exercise(String name, int sets, int reps, int weight, String note) {
+    public Exercise(String name, int sets, int reps, double weight, String note) {
         this.name = name;
         this.sets = sets;
         this.reps = reps;
@@ -96,11 +96,11 @@ public class Exercise {
         this.reps = reps;
     }
 
-    public int getWeight() {
+    public double getWeight() {
         return weight;
     }
 
-    public void setWeight(int weight) {
+    public void setWeight(double weight) {
         this.weight = weight;
     }
 

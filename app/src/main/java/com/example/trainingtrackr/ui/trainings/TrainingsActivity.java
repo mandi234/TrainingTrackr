@@ -65,7 +65,11 @@ public class TrainingsActivity extends AppCompatActivity implements TrainingsAda
             initAdapter(TrainingsActivity.this, trainings);
         });
 
-        fab.setOnClickListener(v -> appViewModel.addTraining(new Training()));
+        fab.setOnClickListener(v -> {
+            updateTrainings();
+            appViewModel.addTraining(new Training());
+
+        } );
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
         dividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.exercise_item_divider));
@@ -120,9 +124,10 @@ public class TrainingsActivity extends AppCompatActivity implements TrainingsAda
         popup.setOnMenuItemClickListener(item -> {
             switch (item.getItemId()) {
                 case R.id.copy_training_menu_item:
+                    updateTrainings();
                     Training copiedTraining = trainingsList.get(position);
                     liveCopiedTrainingExercises = appViewModel.getExercisesByTrainingId(copiedTraining.getId());
-                    long trainingId = appViewModel.addTraining(new Training());
+                    long trainingId = appViewModel.addTraining(new Training(copiedTraining.getName()));
                     liveCopiedTrainingExercises.observe(this, new Observer<List<Exercise>>() {
                         boolean alreadyChanged = false;
 
@@ -149,14 +154,18 @@ public class TrainingsActivity extends AppCompatActivity implements TrainingsAda
 
     @Override
     protected void onStop() {
+        updateTrainings();
+        if (liveCopiedTrainingExercises != null)
+            liveCopiedTrainingExercises.removeObservers(this);
+        super.onStop();
+    }
+
+    private void updateTrainings() {
         for (int i = 0; i < trainingsList.size(); i++) {
             TrainingsAdapter.TrainingViewHolder holder = (TrainingsAdapter.TrainingViewHolder) recyclerView.findViewHolderForLayoutPosition(i);
             trainingsList.get(i).setName(holder.getNameTextView().getText().toString());
         }
         appViewModel.updateTrainings(trainingsList);
-        if (liveCopiedTrainingExercises != null)
-            liveCopiedTrainingExercises.removeObservers(this);
-        super.onStop();
     }
 
 }

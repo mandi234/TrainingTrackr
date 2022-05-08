@@ -94,12 +94,15 @@ public class ExercisesActivity extends AppCompatActivity implements ExercisesAda
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void updateExercises() {
         for (int i = 0; i < exercisesList.size(); i++) {
+
             ExercisesAdapter.ExcerciseViewHolder holder = (ExercisesAdapter.ExcerciseViewHolder) recyclerView.findViewHolderForLayoutPosition(i);
-            exercisesList.get(i).setReps(InputParser.parseInt(holder.getRepsEditText().getText().toString()));
-            exercisesList.get(i).setSets(InputParser.parseInt(holder.getSetsEditText().getText().toString()));
-            exercisesList.get(i).setWeight(InputParser.parseDouble(holder.getWeightEditText().getText().toString()));
-            exercisesList.get(i).setName(holder.getExerciseNameAutoCompTextView().getText().toString());
-            exercisesList.get(i).setNote(holder.getNotesEditText().getText().toString());
+            if ( holder != null ) {
+                exercisesList.get(i).setReps(InputParser.parseInt(holder.getRepsEditText().getText().toString()));
+                exercisesList.get(i).setSets(InputParser.parseInt(holder.getSetsEditText().getText().toString()));
+                exercisesList.get(i).setWeight(InputParser.parseDouble(holder.getWeightEditText().getText().toString()));
+                exercisesList.get(i).setName(holder.getExerciseNameAutoCompTextView().getText().toString());
+                exercisesList.get(i).setNote(holder.getNotesEditText().getText().toString());
+            }
         }
         appViewModel.updateExercises(exercisesList);
     }

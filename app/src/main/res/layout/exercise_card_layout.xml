@@ -16,28 +16,30 @@
 
         <EditText
             android:id="@+id/weight_etn"
-            android:layout_width="45dp"
-            android:layout_height="37dp"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:ems="10"
             android:gravity="center_horizontal"
-            android:inputType="number"
+            android:inputType="numberDecimal"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="@+id/weight_tv"
-            app:layout_constraintStart_toStartOf="@+id/weight_tv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/reps_etn"
             app:layout_constraintTop_toBottomOf="@+id/weight_tv" />
 
         <EditText
             android:id="@+id/reps_etn"
             android:layout_width="45dp"
-            android:layout_height="37dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
             android:layout_marginTop="8dp"
             android:ems="10"
             android:gravity="center_horizontal"
             android:inputType="number"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="@+id/tv2"
-            app:layout_constraintStart_toStartOf="@+id/tv2"
+            app:layout_constraintStart_toEndOf="@+id/sets_etn"
             app:layout_constraintTop_toBottomOf="@+id/tv2" />
 
         <TextView
@@ -82,14 +84,16 @@
             android:layout_marginTop="8dp"
             android:text="Weight"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.448"
+            app:layout_constraintHorizontal_bias="0.518"
             app:layout_constraintStart_toEndOf="@+id/tv2"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/sets_etn"
             android:layout_width="45dp"
-            android:layout_height="37dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
             android:layout_marginTop="8dp"
             android:ems="10"
             android:gravity="center_horizontal"
@@ -98,15 +102,15 @@
             android:textAllCaps="true"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="@+id/sets_tv"
-            app:layout_constraintStart_toStartOf="@+id/sets_tv"
+            app:layout_constraintStart_toEndOf="@+id/exerciseName_actv"
             app:layout_constraintTop_toBottomOf="@+id/sets_tv" />
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginLeft="12dp"
             android:layout_marginBottom="8dp"
             android:text="kg"
             app:layout_constraintBottom_toBottomOf="@+id/weight_etn"
@@ -114,8 +118,8 @@
 
         <AutoCompleteTextView
             android:id="@+id/exerciseName_actv"
-            android:layout_width="111dp"
-            android:layout_height="35dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="8dp"
             android:hint="Name"

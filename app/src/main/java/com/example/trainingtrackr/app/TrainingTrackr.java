@@ -6,6 +6,7 @@ import android.content.Context;
 import androidx.room.Room;
 
 import com.example.trainingtrackr.database.TrackrRoomDatabase;
+import com.example.trainingtrackr.utils.CrashHandler;
 import com.example.trainingtrackr.utils.InputParser;
 
 public class TrainingTrackr extends Application {
@@ -25,7 +26,7 @@ public class TrainingTrackr extends Application {
     public void onCreate() {
         super.onCreate();
         int t = InputParser.parseInt("         ");
-        System.out.println(t);
+        CrashHandler.getInstance().init(this);
         db = Room.databaseBuilder(this, TrackrRoomDatabase.class, "training-trackr-db2")
                 .allowMainThreadQueries()
                 .addMigrations(TrackrRoomDatabase.Migration_2_3)

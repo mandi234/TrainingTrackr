@@ -163,7 +163,9 @@ public class TrainingsActivity extends AppCompatActivity implements TrainingsAda
     private void updateTrainings() {
         for (int i = 0; i < trainingsList.size(); i++) {
             TrainingsAdapter.TrainingViewHolder holder = (TrainingsAdapter.TrainingViewHolder) recyclerView.findViewHolderForLayoutPosition(i);
-            trainingsList.get(i).setName(holder.getNameTextView().getText().toString());
+            if (holder != null) {
+                trainingsList.get(i).setName(holder.getNameTextView().getText().toString());
+            }
         }
         appViewModel.updateTrainings(trainingsList);
     }

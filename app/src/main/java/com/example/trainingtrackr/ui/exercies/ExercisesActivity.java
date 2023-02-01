@@ -69,7 +69,7 @@ public class ExercisesActivity extends AppCompatActivity implements ExercisesAda
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private void initAdapter(Activity context, List<Exercise> exercises) {
-        exercisesAdapter = new ExercisesAdapter(exercises, this);
+        exercisesAdapter = new ExercisesAdapter(exercises, this, appViewModel.getKnownExercises());
         layoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(exercisesAdapter);

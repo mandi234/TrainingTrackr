@@ -6,12 +6,14 @@ import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.trainingtrackr.model.exercise.Exercise;
+import com.example.trainingtrackr.model.exercise.ExerciseDao;
 import com.example.trainingtrackr.model.training.Training;
 import com.example.trainingtrackr.model.training.dao.TrainingDao;
 
 @Database(entities = {Training.class, Exercise.class}, version = 3)
 public abstract class TrackrRoomDatabase extends RoomDatabase {
     public abstract TrainingDao trainingDao();
+    public abstract ExerciseDao exerciseDao();
 
     /**
      * Changing the weight field in Exercise to double, because

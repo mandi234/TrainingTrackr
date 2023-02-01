@@ -4,17 +4,21 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.trainingtrackr.model.exercise.Exercise;
+import com.example.trainingtrackr.model.exercise.ExerciseRepository;
 import com.example.trainingtrackr.model.training.Training;
 import com.example.trainingtrackr.model.training.TrainingRepository;
 
 import java.util.List;
+import java.util.Set;
 
 public class AppViewModel extends ViewModel {
 
     private TrainingRepository trainingRepository;
+    private ExerciseRepository exerciseRepository;
 
-    public AppViewModel(TrainingRepository trainingRepository) {
+    public AppViewModel(TrainingRepository trainingRepository, ExerciseRepository exerciseRepository) {
         this.trainingRepository = trainingRepository;
+        this.exerciseRepository = exerciseRepository;
     }
 
     public long addTraining(Training training) {
@@ -55,5 +59,9 @@ public class AppViewModel extends ViewModel {
 
     public void deleteExercise(Exercise exercise) {
         trainingRepository.deleteExercise(exercise);
+    }
+
+    public List<String> getKnownExercises() {
+        return exerciseRepository.getKnownExercises();
     }
 }

@@ -1,17 +1,22 @@
 package com.example.trainingtrackr.adapters;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.trainingtrackr.R;
 import com.example.trainingtrackr.model.exercise.Exercise;
+import com.example.trainingtrackr.ui.exercies.ExercisesActivity;
 import com.example.trainingtrackr.utils.InputParser;
 
 import org.jetbrains.annotations.NotNull;
@@ -23,10 +28,12 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.Exce
 
     private final OnExerciseListener onExerciseListener;
     private List<Exercise> exercisesList;
+    private List<String> knownExercises;
 
-    public ExercisesAdapter(List<Exercise> exercisesList, OnExerciseListener onExerciseListener) {
+    public ExercisesAdapter(List<Exercise> exercisesList, OnExerciseListener onExerciseListener, List<String> knownExercises) {
         this.onExerciseListener = onExerciseListener;
         this.exercisesList = exercisesList;
+        this.knownExercises = knownExercises;
     }
 
     public List<Exercise> getExercisesList() {
@@ -53,11 +60,12 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.Exce
         holder.weightEditText.setText(InputParser.toExerciseFieldsText(exercise.getWeight()));
         holder.notesEditText.setText(exercise.getNote());
 
-        String[] exercisesNames = holder.itemView.getResources().getStringArray(R.array.exercises);
-        ArrayAdapter<String> exercisesNamesAdapter = new ArrayAdapter<String>(holder.itemView.getContext(), R.layout.support_simple_spinner_dropdown_item, exercisesNames);
+        ArrayAdapter<String> exercisesNamesAdapter = new ArrayAdapter<String>(holder.itemView.getContext(), R.layout.support_simple_spinner_dropdown_item, knownExercises);
         holder.exerciseNameAutoCompTextView.setAdapter(exercisesNamesAdapter);
         holder.exerciseNameAutoCompTextView.setText(exercise.getName());
-
+        holder.exerciseNameAutoCompTextView.setOnItemClickListener((parent, view, position1, id) -> {
+            String name = exercisesNamesAdapter.getItem(position1);
+        });
 
     }
 
